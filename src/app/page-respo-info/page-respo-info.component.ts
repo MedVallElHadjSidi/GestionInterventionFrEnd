@@ -10,6 +10,7 @@ export class PageRespoInfoComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+
   }
 
 }

@@ -1,0 +1,77 @@
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<p></p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 ">
+      <div class="card foot">
+        <div class="card-header">
+          Creation des Categorie
+        </div>
+        <div class="card-body">
+          <div class="container">
+
+            <form #fc="ngForm" (ngSubmit)="AjouterCategorie(fc.value)">
+
+              <div class="form-group row">
+                <label  class="col-sm-2 col-form-label">NomCategorie</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" placeholder="NomCategorie" ngModel="" name="nom" required>
+                </div>
+              </div>
+              <div class="form-group row" *ngIf="modecat==1" >
+              <label  class="col-sm-2 col-form-label">ParentCategorie</label>
+              <div class="col-sm-10">
+                <select class="form-control" ngModel=""  name="parent"  >
+                  <option *ngFor="let u of listCategorie._embedded.categories">{{u.nom}}</option>
+                </select>
+              </div>
+          </div>
+              <div class="form-group row">
+
+                <div class="col-sm-10">
+                  <button type="submit" class="btn btn-success " [disabled]="!fc.valid">AffecterRole</button>
+                </div>
+              </div>
+
+
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 " *ngIf="modeRespAdd==1">
+
+      <div class="card foot">
+        <div class="card-header">
+          Information de Categorie Ajouter
+        </div>
+        <div class="card-body">
+          <div class="col-sm-12">
+            <div class="alert alert-success" role="alert">
+              {{Message}}
+            </div>
+          </div>
+
+          <div class="container-fluid">
+            <table class="table table-bordered " >
+              <tr ><td>IDCategorie:</td><td>{{categorie.idCategorie}}</td></tr>
+              <tr ><td>NomCategorie:</td><td>{{categorie.nom}}</td></tr>
+              <tr ><td>ParentName:</td><td>{{categorie.parent.nom}}</td></tr>
+
+            </table>
+          </div>
+        </div>
+
+
+      </div>
+
+    </div>
+  </div>
+</div>
+<div class="footer">
+  <p class="myp">©  Tous droits réservés BMCI {{date| date :'yyyy'}}</p>
+</div>
+

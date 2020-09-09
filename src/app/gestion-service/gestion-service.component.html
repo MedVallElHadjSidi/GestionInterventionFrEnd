@@ -1,0 +1,172 @@
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<div class="container ">
+
+  <div class="row">
+    <div class="col-md-8 col-md-offset-8">
+      <div class="card foot ">
+        <div class="card-header">
+          Affection des Intervenants Pour Une Service
+        </div>
+        <div class="card-body">
+          <div class="container">
+            <div class="col-sm-12" *ngIf="modeaff==1">
+              <div class="alert alert-success" role="alert">
+                {{Message}}
+              </div>
+            </div>
+            <form #fa="ngForm" (ngSubmit)="AffecterIntervenant(fa.value)">
+            <div class="form-group row" *ngIf="modeNames==1 " >
+              <label  class="col-sm-3 col-form-label">Service</label>
+              <div class="col-sm-9">
+                <select class="form-control" ngModel=""  name="serviceName" required >
+                  <option *ngFor="let s of servicesNames">{{s}}</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group row" *ngIf="modeInter==1 " >
+              <label  class="col-sm-3 col-form-label">Intervenant</label>
+              <div class="col-sm-9">
+                <select class="form-control" ngModel=""  name="intervenantName" required >
+                  <option *ngFor="let i of listIntervenant"    >{{i}}</option>
+                </select>
+              </div>
+            </div>
+
+              <div class="form-group row"  >
+
+                <div class="col-sm-10">
+                  <button type="submit" class="btn btn-success " [disabled]="!fa.valid">Affecter</button>
+                </div>
+              </div>
+
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="col-md-">
+      <div class="card foot">
+        <div class="card-header">
+       affectation du RESPONSABLE
+        </div>
+        <div class="card-body">
+          <div class="container">
+            <div class="col-sm-12" *ngIf="modeAff==1">
+              <div class="alert alert-success" role="alert">
+                {{Message}}
+              </div>
+            </div>
+
+            <form #fr="ngForm" (ngSubmit)="AffecterResponsable(fr.value)">
+            <div class="form-group row" *ngIf="moderespo==1" >
+              <label  class="col-sm-5 col-form-label">Service</label>
+              <div class="col-sm-7">
+                <select class="form-control" ngModel=""  name="serviceName" required >
+                  <option *ngFor="let sr of servicesNamesSansRespos">{{sr}}</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group row" *ngIf="modeRespoSansService==1" >
+              <label  class="col-sm-5 col-form-label">Respo</label>
+              <div class="col-sm-7">
+                <select class="form-control" ngModel=""  name="intervenantName" required >
+
+                  <option *ngFor="let rs of respoSansServices">{{rs}}</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group row">
+
+              <div class="col-sm-10">
+                <button type="submit" class="btn btn-success "  [disabled]="!fr.valid">Affecter</button>
+              </div>
+            </div>
+            </form>
+
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+
+  </div>
+
+
+
+  <div class="row">
+    <div class="col-md-8 col-md-offset-8">
+      <div class="card foot mv">
+        <div class="card-header">
+          Insertions des Services
+        </div>
+        <div class="card-body">
+          <div class="container">
+
+            <form #fs="ngForm" (ngSubmit)="AjouterService(fs.value)">
+              <div class="form-group row">
+                <label  class="col-sm-3 col-form-label">CodeService</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" placeholder="CodeService" ngModel="" name="codeService" required>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label  class="col-sm-3 col-form-label">NameService</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" placeholder="NomService" ngModel="" name="nomService" required>
+                </div>
+              </div>
+
+              <div class="form-group row">
+
+                <div class="col-sm-10">
+                  <button type="submit" class="btn btn-success " [disabled]="!fs.valid">Ajouter</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="col-md-4 " *ngIf="modeAdd==1">
+
+      <div class="card foot mv">
+        <div class="card-header">
+          Information du Service Ajouter
+        </div>
+        <div class="card-body">
+          <div class="col-sm-12">
+            <div class="alert alert-success" role="alert">
+              {{Message}}
+            </div>
+          </div>
+
+          <div class="container-fluid">
+            <table class="table table-bordered " >
+              <tr ><td>CodeSrvc:</td><td>{{serviceAdd.codeService}}</td></tr>
+              <tr ><td>NomSrvc:</td><td>{{serviceAdd.nom}}</td></tr>
+
+
+
+            </table>
+
+          </div>
+        </div>
+
+
+      </div>
+
+    </div>
+  </div>
+          </div>

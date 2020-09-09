@@ -1,0 +1,24 @@
+.foot{
+  margin-bottom: 15px;
+}
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background: #16222A;
+  background: -webkit-linear-gradient(59deg, #16222A, #16222A);
+  background: linear-gradient(59deg, #16222A, #16222A);
+  color: white;
+  text-align: center;
+  height: 38px;
+}
+
+
+.myp{
+  padding: 5px;
+}
+
+.container{
+margin-top: 5px;
+}

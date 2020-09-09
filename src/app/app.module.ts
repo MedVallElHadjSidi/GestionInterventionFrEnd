@@ -12,6 +12,17 @@ import {FormsModule} from '@angular/forms';
 import {AuthentificationService} from '../services/authentification.service';
 import {HttpClientModule} from '@angular/common/http';
 import { NouveauDemandeComponent } from './nouveau-demande/nouveau-demande.component';
+import { DemandeCoursComponent } from './demande-cours/demande-cours.component';
+import { DemandeResoluComponent } from './demande-resolu/demande-resolu.component';
+import { ConsulterHDemandeComponent } from './consulter-h-demande/consulter-h-demande.component';
+import { TesterWebSocketComponent } from './tester-web-socket/tester-web-socket.component';
+import { AdresseComponent } from './adresse/adresse.component';
+import { AgenceComponent } from './agence/agence.component';
+import { AddUserComponent } from './add-user/add-user.component';
+import { AddRoleComponent } from './add-role/add-role.component';
+import { AddCategorieComponent } from './add-categorie/add-categorie.component';
+import { AddMaterielComponent } from './add-materiel/add-materiel.component';
+import { GestionServiceComponent } from './gestion-service/gestion-service.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +32,18 @@ import { NouveauDemandeComponent } from './nouveau-demande/nouveau-demande.compo
     PageAdminComponent,
     PageRespoInfoComponent,
     PageIntervenantComponent,
-    NouveauDemandeComponent
+    NouveauDemandeComponent,
+    DemandeCoursComponent,
+    DemandeResoluComponent,
+    ConsulterHDemandeComponent,
+    TesterWebSocketComponent,
+    AdresseComponent,
+    AgenceComponent,
+    AddUserComponent,
+    AddRoleComponent,
+    AddCategorieComponent,
+    AddMaterielComponent,
+    GestionServiceComponent
   ],
   imports: [
     BrowserModule,

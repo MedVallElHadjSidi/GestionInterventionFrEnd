@@ -1,0 +1,109 @@
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 ">
+
+      <div class="card foot mv">
+        <div class="card-header">
+          Creation Nouveau User
+        </div>
+        <div class="card-body">
+          <div class="alert alert-danger" *ngIf="mode==0">
+            <strong>Verifier votre mot de passe or username</strong>
+          </div>
+          <form #f="ngForm" (ngSubmit)="AjouterUser(f.value)">
+
+          <div class="form-group row">
+            <label  class="col-sm-2 col-form-label">CodeUser</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" placeholder="Code USer" ngModel="" name="code" required>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label  class="col-sm-2 col-form-label">Nom</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" placeholder="saisir nom user" ngModel="" name="nom" required>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label  class="col-sm-2 col-form-label">prenom</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" placeholder="saisir prenom" ngModel="" name="prenom" required>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label  class="col-sm-2 col-form-label">email</label>
+            <div class="col-sm-10">
+              <input type="email" class="form-control" placeholder="saisir email" ngModel="" name="email" required>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label  class="col-sm-2 col-form-label">username</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" placeholder="username" ngModel="" name="username" required>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label  class="col-sm-2 col-form-label">password</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" placeholder="password" ngModel="" name="password" required>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label  class="col-sm-2 col-form-label">confirmer</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" placeholder="Confimer mot de passe" ngModel="" name="confirmation" required>
+            </div>
+          </div>
+
+
+            <div class="form-group row">
+              <div class="col-sm-10">
+                <button type="submit" class="btn btn-success " [disabled]="!f.valid">AjouterUser</button>
+              </div>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 " *ngIf="mode==1">
+
+      <div class="card foot">
+        <div class="card-header">
+          Information d'utilisateur Ajouter
+        </div>
+        <div class="card-body">
+          <div class="col-sm-12">
+            <div class="alert alert-success" role="alert">
+              {{Message}}
+            </div>
+          </div>
+
+          <div class="container-fluid">
+            <table class="table table-bordered " >
+              <tr ><td>Code:</td><td>{{Nuser.code}}</td></tr>
+              <tr ><td>Nom:</td><td>{{Nuser.nom}}</td></tr>
+              <tr ><td>Email:</td><td>{{Nuser.email}}</td></tr>
+              <tr ><td>Email:</td><td>{{Nuser.username}}</td></tr>
+
+
+            </table>
+
+          </div>
+        </div>
+
+
+      </div>
+
+    </div>
+
+  </div>
+</div>
+<div class="footer">
+  <p class="myp">©  Tous droits réservés BMCI {{date| date :'yyyy'}}</p>
+</div>

@@ -28,6 +28,11 @@ export class PageLoginComponent implements OnInit {
           this.authService.saveToken(jwtToken);
           if(this.authService.isAdmin()) this.route.navigateByUrl('/admin')
           else if(this.authService.isSimpleUser())return this.route.navigateByUrl('/user')
+          else if(this.authService.isRespoInfo())return  this.route.navigateByUrl("/respInfo")
+          else{
+            return  this.route.navigateByUrl('/intervenant')
+          }
+
 
 
         },
@@ -37,6 +42,7 @@ export class PageLoginComponent implements OnInit {
 
         }
       )
+
 
 
 

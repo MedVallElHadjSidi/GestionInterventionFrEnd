@@ -1,0 +1,119 @@
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<p></p>
+<div class="container ">
+  <div class="row">
+    <div class="col-md-8 ">
+
+      <div class="card foot">
+        <div class="card-header">
+          Creation d'une Adresse
+        </div>
+        <div class="card-body">
+          <form #f="ngForm" (ngSubmit)="AjouterAdresse(f.value)">
+
+              <div class="form-group row">
+                <label  class="col-sm-2 col-form-label">Code</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" placeholder="CodeAdresse" ngModel="" name="codeAdresse" required>
+                </div>
+              </div>
+
+            <div class="form-group row">
+              <label  class="col-sm-2 col-form-label">Wilaye</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control"  placeholder="Wilaye" ngModel="" name="wilaye" required>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label">Commune</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control"  placeholder="Commune" ngModel="" name="commune" required>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label">Ville</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" placeholder="Ville" ngModel="" name="ville" required>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label">Rue</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" placeholder="Rue" ngModel="" name="rue"required>
+              </div>
+            </div>
+
+
+
+
+            <div class="form-group row">
+              <div class="col-sm-10">
+                <button type="submit" class="btn btn-success " [disabled]="!f.valid">Ajouter</button>
+              </div>
+            </div>
+
+          </form>
+
+
+        </div>
+      </div>
+
+
+
+    </div>
+
+    <div class="col-md-4 " *ngIf="mode==1">
+
+      <div class="card foot">
+        <div class="card-header">
+          Information d'adresse Ajouter
+        </div>
+        <div class="card-body">
+          <div class="col-sm-12">
+            <div class="alert alert-success" role="alert">
+              {{Message}}
+            </div>
+           </div>
+
+          <div class="container-fluid">
+              <table class="table table-bordered " >
+                <tr ><td>CodeAdresse:</td><td>{{adress.codeAdresse}}</td></tr>
+                <tr ><td>Wilaye:</td><td>{{adress.wilaye}}</td></tr>
+                <tr ><td>Commune:</td><td>{{adress.commune}}</td></tr>
+                <tr ><td>Ville:</td><td>{{adress.ville}}</td></tr>
+                <tr ><td>Rue:</td><td>{{adress.rue}}</td></tr>
+              </table>
+
+            </div>
+          </div>
+
+
+        </div>
+
+      </div>
+    </div>
+    <div class="col-md-4 " *ngIf="mode==0 && Message && adress==null">
+
+      <div class="card">
+        <div class="card-header">
+          Erreur
+
+        </div>
+        <div class="card-body">
+          <div class="alert alert-danger" >
+            <strong>{{Message}}</strong>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+</div>
+<div class="footer">
+  <p class="myp">©  Tous droits réservés BMCI {{date| date :'yyyy'}}</p>
+</div>
+
+
+
+

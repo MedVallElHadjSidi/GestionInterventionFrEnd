@@ -1,0 +1,81 @@
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<p></p>
+<div class="container ">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-8">
+      <div class="card foot">
+        <div class="card-header">
+          Insertions des Materiels
+        </div>
+        <div class="card-body">
+          <div class="container">
+
+            <form #fc="ngForm" (ngSubmit)="AjouterMateriel(fc.value)">
+              <div class="form-group row">
+                <label  class="col-sm-2 col-form-label">NomMateriel</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" placeholder="NomMateriel" ngModel="" name="nom" required>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label  class="col-sm-2 col-form-label">Model</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" placeholder="Model" ngModel="" name="model" required>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label  class="col-sm-2 col-form-label">processeur</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" placeholder="processeur" ngModel="" name="processeur" required>
+                </div>
+              </div>
+              <div class="form-group row">
+
+                <div class="col-sm-10">
+                  <button type="submit" class="btn btn-success " [disabled]="!fc.valid">Ajouter</button>
+                </div>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="col-md-4 " *ngIf="modeMateriel==1">
+
+      <div class="card foot">
+        <div class="card-header">
+          Information de Materiel Ajouter
+        </div>
+        <div class="card-body">
+          <div class="col-sm-12">
+            <div class="alert alert-success" role="alert">
+              {{Message}}
+            </div>
+          </div>
+
+          <div class="container-fluid">
+            <table class="table table-bordered " >
+              <tr ><td>IDMateriel:</td><td>{{materielAjouter.idMateriel}}</td></tr>
+              <tr ><td>NomMachine:</td><td>{{materielAjouter.nom}}</td></tr>
+              <tr ><td>ModelMachine:</td><td>{{materielAjouter.model}}</td></tr>
+              <tr ><td>Processeur:</td><td>{{materielAjouter. processeur}}</td></tr>
+
+
+            </table>
+          </div>
+        </div>
+
+
+      </div>
+
+    </div>
+  </div>
+</div>
+<div class="footer">
+  <p class="myp">©  Tous droits réservés BMCI {{date| date :'yyyy'}}</p>
+</div>

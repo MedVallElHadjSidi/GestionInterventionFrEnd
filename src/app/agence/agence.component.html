@@ -1,0 +1,202 @@
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+<div class="container ">
+  <div class="row">
+    <div class="col-md-8 ">
+
+      <div class="card foot mv">
+        <div class="card-header">
+          Creation d'une Agence
+        </div>
+        <div class="card-body">
+          <div class="alert alert-danger" *ngIf="modecode==0">
+            <strong>{{Message}}</strong>
+          </div>
+          <form #f="ngForm" (ngSubmit)="AjouterAgence(f.value)">
+
+            <div class="form-group row">
+              <label  class="col-sm-2 col-form-label">Nom</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" placeholder="Saisir NomAgence" ngModel="" name="nomAgence" required>
+              </div>
+            </div>
+
+            <div class="form-group row" *ngIf="modecode==1" >
+              <label  class="col-sm-2 col-form-label">Adresse</label>
+              <div class="col-sm-10">
+            <select class="form-control" ngModel="" name="codeAdresse" required>
+              <option *ngFor="let c of listAdresse"   >{{c}}</option>
+            </select>
+              </div>
+            </div>
+            <div class="form-group row">
+
+              <div class="col-sm-10">
+                <button type="submit" class="btn btn-success " [disabled]="!f.valid">Ajouter</button>
+              </div>
+            </div>
+
+          </form>
+
+
+        </div>
+      </div>
+
+
+
+    </div>
+
+    <div class="col-md-4 " *ngIf="mode==1">
+
+      <div class="card foot">
+        <div class="card-header">
+          Information d'agence Ajouter
+        </div>
+        <div class="card-body">
+          <div class="col-sm-12">
+            <div class="alert alert-success" role="alert">
+              {{Message}}
+            </div>
+          </div>
+
+          <div class="container-fluid">
+            <table class="table table-bordered " >
+              <tr ><td>IDAgence:</td><td>{{agence.idAgence}}</td></tr>
+              <tr ><td>Nom:</td><td>{{agence.nomAgence}}</td></tr>
+              <tr ><td>commune:</td><td>{{agence.adresse.commune}}</td></tr>
+
+              <tr ><td>rue:</td><td>{{agence.adresse.rue}}</td></tr>
+
+            </table>
+          </div>
+        </div>
+
+
+      </div>
+
+    </div>
+  </div>
+  <div class="container ">
+    <div class="row">
+      <div class="col-md-8 ">
+  <div class="col-md-4 " *ngIf="mode==0 && Message && agence==null">
+
+    <div class="card">
+      <div class="card-header">
+        Erreur
+
+      </div>
+      <div class="card-body">
+        <div class="alert alert-danger" >
+          <strong>{{Message}}</strong>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+    </div>
+  </div>
+</div>
+
+<!--
+<div class="container  mv">
+  <div class="row">
+    <div class="col-md-8 ">
+
+      <div class="card foot">
+        <div class="card-header">
+          Chercher Adresse
+        </div>
+        <div class="card-body">
+          <form #codeForm="ngForm" (ngSubmit)="ChercherAdresse(codeForm.value)">
+
+            <div class="form-group row">
+              <label  class="col-sm-2 col-form-label" for="code">codeAgence</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" placeholder="NomAgence" ngModel="" name="code" id="code" required>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-sm-10">
+                <button type="submit" class="btn btn-success " [disabled]="!codeForm.valid" >chercher</button>
+              </div>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>-->
+
+
+<div class="container  mv">
+  <div class="row">
+    <div class="col-md-8 ">
+
+      <div class="card foot">
+        <div class="card-header">
+          Affectations des utilisateurs
+        </div>
+        <div class="card-body">
+          <form #affectForm="ngForm" (ngSubmit)="AffectationUsers(affectForm.value)">
+
+            <div class="form-group row" *ngIf="modeAgence==1" >
+              <label  class="col-sm-2 col-form-label">NomAgence</label>
+              <div class="col-sm-10">
+                <select class="form-control" ngModel="" name="nomAgence" required>
+                  <option *ngFor="let c of listAgences"   >{{c}}</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group row" *ngIf="modeAffectUser==1" >
+              <label  class="col-sm-2 col-form-label">UserName</label>
+              <div class="col-sm-10">
+                <select class="form-control" ngModel="" name="username" required>
+                  <option *ngFor="let us of listUsers"   >{{us}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-sm-10">
+                <button type="submit" class="btn btn-success " [disabled]="!affectForm.valid" >chercher</button>
+              </div>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 " *ngIf="moderespAU==1">
+
+      <div class="card foot">
+        <div class="card-header">
+          info user
+        </div>
+        <div class="card-body">
+          <div class="col-sm-12">
+            <div class="alert alert-success" role="alert">
+              {{Message}}
+            </div>
+          </div>
+          <div class="container-fluid" >
+            <table class="table table-bordered " >
+              <tr ><td>UserName:</td><td>{{aguser.username}}</td></tr>
+              <tr ><td>NomAgence:</td><td>{{aguser.agence.nomAgence}}</td></tr>
+
+            </table>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="footer">
+  <p class="myp">©  Tous droits réservés BMCI {{date| date :'yyyy'}}</p>
+</div>

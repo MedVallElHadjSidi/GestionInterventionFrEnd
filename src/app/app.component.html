@@ -1,47 +1,76 @@
 
-<nav class="navbar mynav navbar-expand-lg " *ngIf="authService.isSimpleUser()">
-  <img src="assets/images/bmci.png" class="my-image">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.css" rel="stylesheet"/>
 
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+<nav class="navbar mynav  navbar-expand-sm  navbar-dark navbar-expand-lg navbar-light" *ngIf="authService.isAuthentifier()">
+  <img src="assets/images/bmci.png" class="navbar-brand my-image">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse  navbar-collapse " id="collapsibleNavbar">
     <ul class="navbar-nav mr-auto">
-
-      <li class="nav-item">
-        <a class="nav-link active" routerLink="user">CreerDemande</a>
+      <li class="nav-item" *ngIf="authService.isSimpleUser()">
+        <a class="nav-link" routerLink="/user">CreerDemande</a>
+      </li>
+      <li class="nav-item" *ngIf="authService.isIntervenant()">
+        <a class="nav-link" href="#">TableauBord</a>
       </li>
 
 
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <li class="nav-item" *ngIf="authService.isRespoInfo()">
+        <a class="nav-link" href="#">TableauBord</a>
+      </li>
+      <li class="nav-item" *ngIf="authService.isRespoInfo()">
+        <a class="nav-link" href="#">ServicesEnCours</a>
+      </li>
+      <li class="nav-item dropdown" *ngIf="authService.isSimpleUser()">
+        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           GestionDemande
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" routerLink="/CreeDemande">Demande En Cours</a>
-          <a class="dropdown-item" routerLink="/CreeDemande">Demande Resolu</a>
+          <a class="dropdown-item" href="#">Demandes En Cours</a>
+          <a class="dropdown-item" href="#">Demandes Résolus</a>
+          <a class="dropdown-item" href="#">Demandes Rejeter</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Consultation Demande</a>
+          <a class="dropdown-item" href="#">ConsulterHistorique</a>
         </div>
       </li>
 
+      <li class="nav-item dropdown" *ngIf="authService.isAdmin()">
+        <a class="nav-link dropdown-toggle"  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Administration
+        </a>
 
-          <li class="nav-item my-float"><a class="nav-link" (click)="logout()">  <i class="fa fa-sign-out" aria-hidden="true" >Logout</i></a>
-          </li>
-
-
-
-
-
-
-
-
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" routerLink="/addAdresse">AjouterAdresse</a>
+          <a class="dropdown-item" routerLink="/addAgence">Ajouter Agence</a>
+          <a class="dropdown-item" routerLink="/addUser">Ajouter User</a>
+          <a class="dropdown-item" routerLink="/addRole">Ajouter Roles</a>
+          <a class="dropdown-item" routerLink="/addCategorie">Ajouter Categorie</a>
+          <a class="dropdown-item" routerLink="/addMateriel">Ajouter Materiel</a>
+          <a class="dropdown-item" routerLink="/gestionService">Gestion Service</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">ConsulterHistorique</a>
+        </div>
+      </li>
     </ul>
+      <div class="navbar-nav" *ngIf="authService.isRespoInfo()">
+          <a href="#notifications-panel" class="nav-link " data-toggle="dropdown">
+            <i data-count="2" class="oi oi-bell notification-icon" aria-label="Nofitication centre"></i>
+          </a>
+      </div>
+    <div class="navbar-nav">
+      <a class="nav-link" (click)="logout()">  <i class="fa fa-sign-out" aria-hidden="true" >Logout</i></a>
+    </div>
+    </div>
 
-  </div>
 </nav>
 
 <router-outlet></router-outlet>
 <!-- Footer -->
-<footer class="page-footer font-small blue">
+<footer class="page-footer font-small blue" *ngIf="!authService.isAdmin()">
 
   <!-- Copyright -->
   <div class="footer-copyright text-center py-3">©  Tous droits réservés BMCI {{date | date :'yyyy'}}.
