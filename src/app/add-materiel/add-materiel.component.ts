@@ -9,6 +9,8 @@ import {AuthentificationService} from '../../services/authentification.service';
 export class AddMaterielComponent implements OnInit {
   private auth:AuthentificationService;
   modeMateriel;
+  modeAgence;
+  listAgences;
   materielAjouter;
   Message:string;
   date=new Date();
@@ -19,6 +21,7 @@ export class AddMaterielComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.AgencesNames();
   }
   AjouterMateriel(materiel){
     this.auth.addMateriel(materiel).subscribe(resp=>{
@@ -33,6 +36,13 @@ export class AddMaterielComponent implements OnInit {
       this.Message=error.error.message;
       })
 
+
+  }
+  AgencesNames(){
+    this.auth.AgencesNames().subscribe(resp=>{
+      this.listAgences=resp;
+      this.modeAgence=1;
+    })
 
   }
 

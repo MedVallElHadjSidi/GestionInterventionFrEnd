@@ -14,6 +14,8 @@ import {Materiel} from '../Entities/Materiel ';
 @Injectable()
 export  class AuthentificationService {
   public jwtToken = null;
+  public username;
+  public isrespo=false;
 
   private host: string = "http://localhost:8080";
   private myroles: Array<any>;
@@ -24,12 +26,28 @@ export  class AuthentificationService {
   login(user) {
     return this.http.post(this.host + "/login", user, {observe: 'response'});
   }
+  ChercherParentCategorie(){
+    return this.http.get(this.host+"/ChercherAllCategorieParent",{headers: new HttpHeaders({'authorization': this.jwtToken})});
+
+
+  }
+
+
+ChercherSousCategorieNames(nom:string){
+
+    return this.http.get(this.host+"/ChercherSousCategorieNames"+"/"+nom,{headers: new HttpHeaders({'authorization': this.jwtToken})});
+  }
+
+
+
 
   saveToken(jwt) {
     this.jwtToken = jwt;
     localStorage.setItem('token', jwt);
     let jwtHelperService=new JwtHelperService();
     let objectHelper=jwtHelperService.decodeToken(this.jwtToken)
+    this.username=objectHelper.sub;
+    console.log(this.username);
     this.myroles=objectHelper.roles
 
 
@@ -139,6 +157,9 @@ export  class AuthentificationService {
   console.log(code)
     return this.http.get(this.host+"/chercheByCodeAdresse"+"/"+code,{headers: new HttpHeaders({'authorization': this.jwtToken})});
   }
+  findByAllMaterielNames(username:string){
+    return this.http.get(this.host+"/ChercherAllMaterielNames"+"/"+username,{headers: new HttpHeaders({'authorization': this.jwtToken})});
+  }
 
   loadTokn() {
     this.jwtToken = localStorage.getItem('token');
@@ -177,7 +198,10 @@ export  class AuthentificationService {
   isRespoInfo(){
     if(this.myroles!=undefined) {
       for (let role of this.myroles) {
-        if (role.authority == 'RESPONSABLE') return true;
+        if (role.authority == 'RESPONSABLE') {
+          this.isrespo=true;
+
+          return true;}
 
       }
     }
@@ -195,6 +219,40 @@ export  class AuthentificationService {
 
     return false;
 
+  }
+  Notification(){
+    return this.http.get(this.host+"/Notification",{headers: new HttpHeaders({'authorization': this.jwtToken})});
+
+
+  }
+  NouveauMessagesDemande(){
+    console.log("nouveaux avec service")
+    return this.http.get(this.host+"/NouveauxDemandes",{headers: new HttpHeaders({'authorization': this.jwtToken})});
+
+  }
+
+  ChercherByidDemande(id){
+    return this.http.get(this.host+"/ChercherByidDemande/"+id,{headers: new HttpHeaders({'authorization': this.jwtToken})});
+
+
+  }
+  imagesDemandes(id)
+  {
+    return this.http.get(this.host+"/imagesDemandes/"+id,{headers: new HttpHeaders({'authorization': this.jwtToken})});
+
+
+  }
+  Tester(file){
+    console.log(file)
+    return this.http.post(this.host+"/file",file,{headers:new HttpHeaders({'authorization':this.jwtToken})})
+  }
+  ResetDemande(message){
+  console.log(message);
+
+     return this.http.post<any>(this.host+"/app/envoyer",message,{headers:new HttpHeaders({'authorization':this.jwtToken})});
+      }
+  DemandeRejeter(d){
+    return this.http.get(this.host+"/rejeter/"+d,{headers:new HttpHeaders({'authorization':this.jwtToken})});
   }
 
 }

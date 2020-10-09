@@ -39,11 +39,11 @@
       </li>
 
       <li class="nav-item dropdown" *ngIf="authService.isAdmin()">
-        <a class="nav-link dropdown-toggle"  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="nav-link dropdown-toggle" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Administration
         </a>
 
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
           <a class="dropdown-item" routerLink="/addAdresse">AjouterAdresse</a>
           <a class="dropdown-item" routerLink="/addAgence">Ajouter Agence</a>
           <a class="dropdown-item" routerLink="/addUser">Ajouter User</a>
@@ -55,11 +55,29 @@
           <a class="dropdown-item" href="#">ConsulterHistorique</a>
         </div>
       </li>
-    </ul>
-      <div class="navbar-nav" *ngIf="authService.isRespoInfo()">
-          <a href="#notifications-panel" class="nav-link " data-toggle="dropdown">
-            <i data-count="2" class="oi oi-bell notification-icon" aria-label="Nofitication centre"></i>
+
+
+
+      <li class="nav-item dropdown" *ngIf="authService.isRespoInfo() ">
+        <a class="nav-link dropdown-toggle"  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" (click)="NouveauxDemande()">
+          Notification
+        </a>
+
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown" *ngIf="authService.isrespo==true ">
+          <a class="dropdown-item"  *ngFor="let n of nouveauxDemandes"  (click)="Consulter(n.id_Demande)">Message {{n.panne.etatPanne}} de <span>{{n.utilisateurs.username}}</span> de  {{n.utilisateurs.agence.nomAgence}} <br>
+            Adresse :{{n.utilisateurs.agence.adresse.wilaye}},{{n.utilisateurs.agence.adresse.aommune}},{{n.utilisateurs.agence.adresse.ville}},{{n.utilisateurs.agence.adresse.rue}}
           </a>
+
+        </div>
+      </li>
+    </ul>
+
+      <div class="navbar-nav" >
+          <a routerLink="#notifications-panel" class="nav-link " data-toggle="dropdown">
+            <i data-count="6" class="oi oi-bell notification-icon" aria-label="Nofitication centre"></i>
+          </a>
+
+
       </div>
     <div class="navbar-nav">
       <a class="nav-link" (click)="logout()">  <i class="fa fa-sign-out" aria-hidden="true" >Logout</i></a>
@@ -67,7 +85,47 @@
     </div>
 
 </nav>
+<div class="container md ">
+  <div class="row">
+    <div class="col-md-8 ">
+<div class="card " *ngIf="consulter==1 && demande!=undefined">
+  <div class="card-header">
+    info Demande
+  </div>
+  <div class="card-body">
 
+    <div class="container "  >
+      <table class="table table-bordered " >
+        <tr ><td>Etat Demande:</td><td>{{demande.etat_Demande}}</td></tr>
+        <tr ><td>Etat panne :</td><td>{{demande.panne.etatPanne}}</td></tr>
+
+        <tr ><td>description:</td><td>{{demande.panne.description}}</td></tr>
+        <tr><td>image:</td><td><img [src]="photos"  class="img-thumbnail" /></td></tr>
+
+      </table>
+      <div class=container>
+        <div class="dropdown">
+          <button class="btn btn-success" data-toggle="dropdown" >Accepter</button>
+          <ul class="dropdown-menu" >
+            <li  class="dropmenu-item"><a>Intervenir vous meme</a></li>
+            <li class="dropmenu-item"><a>Affecter un  intervenant</a></li>
+          </ul>
+
+          <button class="btn badge-danger" (click)="DemandeRejeter(demande.id_Demande)" >refuser</button>
+        </div>
+
+
+
+      </div>
+
+    </div>
+  </div>
+    </div>
+
+  </div>
+</div>
+
+</div>
 <router-outlet></router-outlet>
 <!-- Footer -->
 <footer class="page-footer font-small blue" *ngIf="!authService.isAdmin()">

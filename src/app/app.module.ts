@@ -8,7 +8,7 @@ import { PageUserComponent } from './page-user/page-user.component';
 import { PageAdminComponent } from './page-admin/page-admin.component';
 import { PageRespoInfoComponent } from './page-respo-info/page-respo-info.component';
 import { PageIntervenantComponent } from './page-intervenant/page-intervenant.component';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AuthentificationService} from '../services/authentification.service';
 import {HttpClientModule} from '@angular/common/http';
 import { NouveauDemandeComponent } from './nouveau-demande/nouveau-demande.component';
@@ -49,6 +49,7 @@ import { GestionServiceComponent } from './gestion-service/gestion-service.compo
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule
   ],
   providers: [AuthentificationService],

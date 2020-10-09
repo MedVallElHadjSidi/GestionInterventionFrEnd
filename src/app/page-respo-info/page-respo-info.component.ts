@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {WebSocketAPI} from '../../SocketAngular/WebSocketAPI';
+import {AuthentificationService} from '../../services/authentification.service';
+import {PageUserComponent} from '../page-user/page-user.component';
 
 @Component({
   selector: 'app-page-respo-info',
@@ -6,11 +9,27 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./page-respo-info.component.css']
 })
 export class PageRespoInfoComponent implements OnInit {
+  notification;
+  webSocket:WebSocketAPI;
+  auth:AuthentificationService;
+  coonnecter=false;
 
-  constructor() { }
 
-  ngOnInit(): void {
+  constructor(authentificationService:AuthentificationService) {
+    this.auth=authentificationService
 
   }
+
+  ngOnInit(): void {
+    this.webSocket=new WebSocketAPI(this.auth );
+    this.webSocket.connecter();
+    this.coonnecter=true;
+  }
+
+
+
+
+
+
 
 }

@@ -12,25 +12,52 @@
           Creation d'une Demande
         </div>
         <div class="card-body">
-          <form #f="ngForm" (ngSubmit)="EnvoyerDemande(f.value)">
-            <div class="form-group row">
+          <form #f="ngForm" (ngSubmit)="EnvoyerDemande(f.value)" enctype = "multipart / form-data">
+            <div class="form-group row"  *ngIf="modepanne==1" >
               <label class="col-sm-2 col-form-label">Type Panne</label>
-              <div class="col-sm-10">
-                <select class="custom-select" ngModel=""  name="typePanne">
-                  <option selected >Open this select menu</option>
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
-                </select>
-              </div>
+                <div class="col-sm-10">
+                    <select class="custom-select  dropdown"  #mysection ngModel name="type" [(ngModel)]="modelDemande.type"  required  (change)="notreParent(mysection.value)"  [value]="modelDemande.type"   >
+                      <optgroup *ngIf="modechange!=1" >
+                        <option  class="dropdown-item" *ngFor="let m of listPanneParent"  >{{m}}</option>
+                      </optgroup>
+                      <optgroup  *ngIf="modechange==1" >
+                        <p></p>
+                        <option   [hidden]="true"  >{{modelDemande.type}}</option>
+
+                          <option  *ngFor="let s of listSousCategories" >{{s}}</option>
+
+
+
+                      </optgroup>
+
+                    </select>
+
+
+
+
+
+
+
+
+
+
+                  </div>
             </div>
             <div class="form-group row">
               <label class="col-sm-2 col-form-label">Etat du  Panne</label>
               <div class="col-sm-10">
-                <select class="custom-select" ngModel="" name="etatPanne">
+                <select class="custom-select" ngModel="" name="etat" required="" [(ngModel)]="modelDemande.etat">
                   <option selected>Urgent</option>
                   <option value="1">un peu Urgent </option>
 
+                </select>
+              </div>
+            </div>
+            <div class="form-group row" *ngIf="modeMateriel==1" >
+              <label  class="col-sm-2 col-form-label">Materiel</label>
+              <div class="col-sm-10">
+                <select class="custom-select" ngModel="" name="materiel" required [(ngModel)]="modelDemande.materiel">
+                  <option *ngFor="let m of listMateriels"   >{{m}}</option>
                 </select>
               </div>
             </div>
@@ -39,7 +66,7 @@
               <div class="col-sm-10">
                 <div class="form-group green-border-focus">
                   <label for="exampleFormControlTextarea5">description du panne rencontrer</label>
-                  <textarea class="form-control" id="exampleFormControlTextarea5" rows="3" ngModel="" name="description"></textarea>
+                  <textarea class="form-control" id="exampleFormControlTextarea5" rows="3" ngModel="" name="description" required="" [(ngModel)]="modelDemande.description" accept="image/*"></textarea>
                 </div>
               </div>
             </div>
@@ -47,16 +74,18 @@
               <label class="col-sm-2 col-form-label">Joindre ficher</label>
               <div class="col-sm-10">
                 <div class="custom-file mb-3">
-                  <input type="file" class="custom-file-input" id="customFile" ngModel="" name="filename">
-                  <label class="custom-file-label" for="customFile">Choose file</label>
+                  <input type="file" class="custom-file-input" id="customFile" ngModel="" name="filename" required="" (change)="onFileChanged($event)"  accept=".png, .gif, .jpeg, .jpg">
+                  <label class="custom-file-label" for="customFile">Chosir votre image</label>
                 </div>
+
+                <img [src]="modelDemande.image" height="200" alt="Image preview..." *ngIf="modelDemande.image">
               </div>
             </div>
 
             <div class="form-group row">
-              <label class="col-sm-2 col-form-label">Responsable</label>
+              <label class="col-sm-2 col-form-label">Service</label>
               <div class="col-sm-10">
-                <select class="custom-select" ngModel="" name="responsable">
+                <select class="custom-select" ngModel="" name="service" required="" [(ngModel)]="modelDemande.service">
                   <option selected>Informatique</option>
                   <option value="comptabiliter">comptabiliter</option>
 
@@ -68,7 +97,7 @@
 
             <div class="form-group row">
               <div class="col-sm-10">
-                <button type="submit" class="btn btn-success">Envoyer</button>
+                <button type="submit" class="btn btn-success" [disabled]="!f.valid">Envoyer</button>
               </div>
             </div>
 
@@ -81,7 +110,6 @@
 
 
     </div>
-
 
 
   </div>

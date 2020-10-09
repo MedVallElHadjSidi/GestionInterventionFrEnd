@@ -2,31 +2,48 @@ import {PageUserComponent} from '../app/page-user/page-user.component';
 
 import {Stomp} from '@stomp/stompjs';
 import * as SockJS from 'sockjs-client';
+import {MesMessage} from '../Entities/MesMessage';
 
-export class WebSocketAPI {
+import {AuthentificationService} from '../services/authentification.service';
+
+export class WebSocketAPI{
   webSocketEndPoint: string = 'http://localhost:8080/ws';
-  topic: string = "/topic/greetings";
+
   stompClient: any;
   app: string = "/app";
-  userComponent:PageUserComponent;
+  auth:AuthentificationService;
+
+  messages:MesMessage[]=[];
+  username:string;
+  url:string="/topic/replay"+"/";
+  notification;
+  contenuDemande;
 
 
 
-  constructor(pageUserComponent:PageUserComponent) {
-    this.userComponent=pageUserComponent;
+  constructor(authentificationService:AuthentificationService) {
+    this.auth=authentificationService;
+    this.notification=this.notifications();
+
 
   }
+
   connecter(){
     console.log("initialiser web socket");
     let ws =  new SockJS(this.webSocketEndPoint);
     this.stompClient=Stomp.over(ws);
-    console.log(this.userComponent.auth.jwtToken)
     const _this = this;
+    this.username=this.auth.username;
+    console.log(this.username);
+    _this.url=_this.url+this.auth.username;
     _this.stompClient.connect({}, function (frame) {
-      _this.stompClient.subscribe(_this.topic, function (sdkEvent) {
-        _this.onMessageReceived(sdkEvent);
 
+      _this.stompClient.subscribe(_this.url, (message)=> {
+        _this.notification=JSON.parse(message.body);
+        console.log("ce message vient du broker")
+        _this.handleResult(message);
       });
+
       //_this.stompClient.reconnect_delay = 2000;
     }, this.errorCallBack);
   };
@@ -38,24 +55,27 @@ export class WebSocketAPI {
   }
   _send(message) {
     console.log("calling logout api via web socket");
-    this.stompClient.send("/app/hello", {}, JSON.stringify(message));
-    console.log(message)
+    this.stompClient.send("/app/hello",{},JSON.stringify(message));
+    this.handleResult(message);
+
+
   }
 
-  onMessageReceived(message) {
-    console.log("Message Recieved from Server connecter :: " + message);
-    this.stompClient.connect({}, function (frame) {
-      this.stompClient.subscribe(this.app, function (sdkEvent) {
-        this.onMessageReceived(sdkEvent);
 
 
-      });
+  handleResult(message){
+    if (message.body) {
+      let messageResult = JSON.parse(message.body);
+      console.log(messageResult);
+      this.messages.push(messageResult);
+    }
+  }
+  notifications(){
+
+    this.auth.Notification().subscribe(resp=>{
+      this.notification=resp;
     })
-    this.userComponent.handleMessage(JSON.stringify(message.body));
-
-
   }
-
 
 
 

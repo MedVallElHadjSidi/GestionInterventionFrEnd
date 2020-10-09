@@ -14,6 +14,9 @@
   background-color: white;
 
 }
+.md{
+  margin-top: 5px;
+}
 .mynav .navbar-brand{
   color: aliceblue;
 }
@@ -35,13 +38,29 @@ footer {
   background: -webkit-linear-gradient(59deg, #16222A, #16222A);
   background: linear-gradient(59deg, #16222A, #16222A);
   color: white;
-  margin-top:100px;
+  margin-top:95px;
 }
 .footer-copyright{
   margin-top: -111px;
 
 }
+.myimg{
+  width: 200px;
+  height: 200px;
+  margin: 0 auto;
+  display: block;
 
+}
+@media(min-width: 1200px) {
+  .myimg {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+    display: block;
+
+  }
+
+}
 
 .navbar-expand-lg{
   background-color: forestgreen;

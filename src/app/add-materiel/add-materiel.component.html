@@ -13,7 +13,7 @@
 
             <form #fc="ngForm" (ngSubmit)="AjouterMateriel(fc.value)">
               <div class="form-group row">
-                <label  class="col-sm-2 col-form-label">NomMateriel</label>
+                <label  class="col-sm-2 col-form-label">Materiel</label>
                 <div class="col-sm-10">
                   <input type="text" class="form-control" placeholder="NomMateriel" ngModel="" name="nom" required>
                 </div>
@@ -31,6 +31,17 @@
                   <input type="text" class="form-control" placeholder="processeur" ngModel="" name="processeur" required>
                 </div>
               </div>
+
+
+              <div class="form-group row" *ngIf="modeAgence==1" >
+                <label  class="col-sm-2 col-form-label">Agence</label>
+                <div class="col-sm-10">
+                  <select class="form-control" ngModel="" name="agence" required>
+                    <option *ngFor="let c of listAgences"   >{{c}}</option>
+                  </select>
+                </div>
+              </div>
+
               <div class="form-group row">
 
                 <div class="col-sm-10">
@@ -64,6 +75,7 @@
               <tr ><td>NomMachine:</td><td>{{materielAjouter.nom}}</td></tr>
               <tr ><td>ModelMachine:</td><td>{{materielAjouter.model}}</td></tr>
               <tr ><td>Processeur:</td><td>{{materielAjouter. processeur}}</td></tr>
+              <tr ><td>Agence:</td><td>{{materielAjouter.agence.nomAgence}}</td></tr>
 
 
             </table>
