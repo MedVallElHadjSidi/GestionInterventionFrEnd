@@ -1,48 +1,15 @@
-
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-
-<link href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.css" rel="stylesheet"/>
-
-
-<nav class="navbar mynav  navbar-expand-sm  navbar-dark navbar-expand-lg navbar-light" *ngIf="authService.isAuthentifier()">
+<nav class="navbar mynav  navbar-expand-sm  navbar-dark navbar-expand-lg navbar-light" *ngIf="authService.isAuthentifier() && !authService.isRespoInfo()" >
   <img src="assets/images/bmci.png" class="navbar-brand my-image">
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse  navbar-collapse " id="collapsibleNavbar">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item" *ngIf="authService.isSimpleUser()">
-        <a class="nav-link" routerLink="/user">CreerDemande</a>
-      </li>
-      <li class="nav-item" *ngIf="authService.isIntervenant()">
-        <a class="nav-link" href="#">TableauBord</a>
-      </li>
 
-
-      <li class="nav-item" *ngIf="authService.isRespoInfo()">
-        <a class="nav-link" href="#">TableauBord</a>
-      </li>
-      <li class="nav-item" *ngIf="authService.isRespoInfo()">
-        <a class="nav-link" href="#">ServicesEnCours</a>
-      </li>
-      <li class="nav-item dropdown" *ngIf="authService.isSimpleUser()">
-        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          GestionDemande
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Demandes En Cours</a>
-          <a class="dropdown-item" href="#">Demandes Résolus</a>
-          <a class="dropdown-item" href="#">Demandes Rejeter</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">ConsulterHistorique</a>
-        </div>
-      </li>
-
-      <li class="nav-item dropdown" *ngIf="authService.isAdmin()">
+      <li class="nav-item dropdown" *ngIf="authService.isAdmin()==true">
         <a class="nav-link dropdown-toggle" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Administration
         </a>
-
         <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
           <a class="dropdown-item" routerLink="/addAdresse">AjouterAdresse</a>
           <a class="dropdown-item" routerLink="/addAgence">Ajouter Agence</a>
@@ -55,86 +22,83 @@
           <a class="dropdown-item" href="#">ConsulterHistorique</a>
         </div>
       </li>
-
-
-
-      <li class="nav-item dropdown" *ngIf="authService.isRespoInfo() ">
-        <a class="nav-link dropdown-toggle"  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" (click)="NouveauxDemande()">
-          Notification
-        </a>
-
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown" *ngIf="authService.isrespo==true ">
-          <a class="dropdown-item"  *ngFor="let n of nouveauxDemandes"  (click)="Consulter(n.id_Demande)">Message {{n.panne.etatPanne}} de <span>{{n.utilisateurs.username}}</span> de  {{n.utilisateurs.agence.nomAgence}} <br>
-            Adresse :{{n.utilisateurs.agence.adresse.wilaye}},{{n.utilisateurs.agence.adresse.aommune}},{{n.utilisateurs.agence.adresse.ville}},{{n.utilisateurs.agence.adresse.rue}}
-          </a>
-
-        </div>
+         <li class="nav-item" *ngIf="authService.isSimpleUser()">
+           <a class="nav-link" routerLink="/user">CreerDemande</a>
+         </li>
+         <li class="nav-item" *ngIf="authService.isIntervenant()">
+           <a class="nav-link" href="#">TableauBord</a>
+         </li>
+      <li class="nav-item" *ngIf="authService.isRespoInfo()" >
+        <a class="nav-link" href="#">TableauBord</a>
       </li>
-    </ul>
-
-      <div class="navbar-nav" >
-          <a routerLink="#notifications-panel" class="nav-link " data-toggle="dropdown">
-            <i data-count="6" class="oi oi-bell notification-icon" aria-label="Nofitication centre"></i>
+      <li class="nav-item" *ngIf="authService.isRespoInfo()">
+        <a class="nav-link" href="#">ServicesEnCours</a>
+      </li>
+        <li class="nav-item dropdown" *ngIf="authService.isSimpleUser()">
+          <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            GestionDemande
           </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#">Demandes En Cours</a>
+            <a class="dropdown-item" href="#">Demandes Résolus</a>
+            <a class="dropdown-item" href="#">Demandes Rejeter</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">ConsulterHistorique</a>
+          </div>
+        </li>
 
 
-      </div>
-    <div class="navbar-nav">
-      <a class="nav-link" (click)="logout()">  <i class="fa fa-sign-out" aria-hidden="true" >Logout</i></a>
-    </div>
-    </div>
 
+
+
+      <!-- <li class="nav-item dropdown" *ngIf="authService.isRespoInfo() ">
+         <a class="nav-link dropdown-toggle"  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" (click)="NouveauxDemande()">
+           Notification
+         </a>
+
+         <div class="dropdown-menu" aria-labelledby="navbarDropdown" *ngIf="authService.isrespo==true ">
+           <a class="dropdown-item"  *ngFor="let n of nouveauxDemandes"  (click)="Consulter(n.id_Demande)">Message {{n.panne.etatPanne}} de <span>{{n.utilisateurs.username}}</span> de  {{n.utilisateurs.agence.nomAgence}} <br>
+             Adresse :{{n.utilisateurs.agence.adresse.wilaye}},{{n.utilisateurs.agence.adresse.aommune}},{{n.utilisateurs.agence.adresse.ville}},{{n.utilisateurs.agence.adresse.rue}}
+           </a>
+
+         </div>
+       </li>-->
+    </ul>
+  </div>
+  <div class="top-nav notification-row" >
+
+    <!-- notificatoin dropdown start-->
+    <ul class="nav pull-right top-menu" *ngIf="authService.isAuthentifier()">
+
+      <li class="dropdown">
+        <a data-toggle="dropdown" class="dropdown-toggle nav-link" href="#">
+          <!--<span class="profile-ava">
+            <img alt="" src="assets/menu/img/icons/bg-1.jpg">
+         </span>-->
+          <span class="user22"><i class="icon_profile"></i>{{authService.username}}</span>
+          <b class="caret"></b>
+        </a>
+        <ul class="dropdown-menu extended logout">
+          <div class="log-arrow-up"></div>
+
+          <li>
+            <a class="nav" (click)="logout()"><i class="icon_key_alt"></i> Log Out</a>
+          </li>
+
+          <li>
+            <i class="icon_key_alt"></i>
+          </li>
+        </ul>
+      </li>
+      <!-- user login dropdown end -->
+    </ul>
+    <!-- notificatoin dropdown end-->
+  </div>
 </nav>
-<div class="container md ">
-  <div class="row">
-    <div class="col-md-8 ">
-<div class="card " *ngIf="consulter==1 && demande!=undefined">
-  <div class="card-header">
-    info Demande
-  </div>
-  <div class="card-body">
-
-    <div class="container "  >
-      <table class="table table-bordered " >
-        <tr ><td>Etat Demande:</td><td>{{demande.etat_Demande}}</td></tr>
-        <tr ><td>Etat panne :</td><td>{{demande.panne.etatPanne}}</td></tr>
-
-        <tr ><td>description:</td><td>{{demande.panne.description}}</td></tr>
-        <tr><td>image:</td><td><img [src]="photos"  class="img-thumbnail" /></td></tr>
-
-      </table>
-      <div class=container>
-        <div class="dropdown">
-          <button class="btn btn-success" data-toggle="dropdown" >Accepter</button>
-          <ul class="dropdown-menu" >
-            <li  class="dropmenu-item"><a>Intervenir vous meme</a></li>
-            <li class="dropmenu-item"><a>Affecter un  intervenant</a></li>
-          </ul>
-
-          <button class="btn badge-danger" (click)="DemandeRejeter(demande.id_Demande)" >refuser</button>
-        </div>
-
-
-
-      </div>
-
-    </div>
-  </div>
-    </div>
-
-  </div>
-</div>
-
-</div>
-<router-outlet></router-outlet>
-<!-- Footer -->
+<!--
 <footer class="page-footer font-small blue" *ngIf="!authService.isAdmin()">
-
-  <!-- Copyright -->
   <div class="footer-copyright text-center py-3">©  Tous droits réservés BMCI {{date | date :'yyyy'}}.
-
   </div>
-  <!-- Copyright -->
-
 </footer>
-<!-- Footer -->
+-->
+  <router-outlet></router-outlet>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthentificationService} from '../../services/authentification.service';
+import {ServiceModel} from '../../Entities/serviceModel';
 
 @Component({
   selector: 'app-gestion-service',
@@ -23,6 +24,7 @@ export class GestionServiceComponent implements OnInit {
   modeRespoSansService;
   servRESPO;
   modeAff;
+  modelservice:ServiceModel=new ServiceModel();
 
   constructor(authentificationService:AuthentificationService) {
     this.auth=authentificationService;
@@ -87,9 +89,11 @@ export class GestionServiceComponent implements OnInit {
   this.moderespo=1;
 
 
+
   }
 
-  )
+  );
+
   }
   AjouterService(service){
   this.auth.addService(service).subscribe(
@@ -103,8 +107,11 @@ export class GestionServiceComponent implements OnInit {
   ,error=>{
   this.modeAdd=0;
   this.Message=error.error.message;
-  })
+  });
 
+  this.modelservice=new ServiceModel();
+  this.servicesNames();
+  this.servicesNamesSansRespo();
   }
 
 

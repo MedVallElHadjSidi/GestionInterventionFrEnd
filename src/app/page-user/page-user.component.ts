@@ -4,8 +4,6 @@ import {AppComponent} from '../app.component';
 import {AuthentificationService} from '../../services/authentification.service';
 import {MesMessage} from '../../Entities/MesMessage';
 import {ModelDemande} from '../../Entities/ModelDemande';
-import {FormGroup} from '@angular/forms';
-import {DomSanitizer} from '@angular/platform-browser';
 
 
 @Component({
@@ -16,8 +14,8 @@ import {DomSanitizer} from '@angular/platform-browser';
 export class PageUserComponent implements OnInit {
   date =new  Date();
   blob:Blob;
-  from:FormGroup;
-  private userForm: FormGroup;
+
+
   responsable;
   webSocketAPI: WebSocketAPI;
   auth:AuthentificationService;
@@ -33,16 +31,14 @@ export class PageUserComponent implements OnInit {
   selectedFile:File;
   test;
   n;
+  nouveauxmessage;
   base64Image;
   url;
-  sanitizer:DomSanitizer;
-  preview;
-
   modelDemande:ModelDemande=new ModelDemande();
 
-  constructor(authentificationService:AuthentificationService,sanitizer:DomSanitizer) {
+  constructor(authentificationService:AuthentificationService) {
     this.auth=authentificationService
-    this.sanitizer=sanitizer
+
   }
 
 
@@ -60,8 +56,6 @@ export class PageUserComponent implements OnInit {
 
   }
   EnvoyerDemande(Demande){
-
-    this.messages=this.webSocketAPI.messages;
     this.modelDemande.type=Demande.type
     this.modelDemande.etat=Demande.etat;
     this.modelDemande.description=Demande.description;
@@ -86,12 +80,14 @@ export class PageUserComponent implements OnInit {
 
     this.webSocketAPI._send(this.modelDemande,file);
 */
+this.webSocketAPI._send(this.modelDemande);
 
- this.auth.ResetDemande(this.modelDemande).subscribe(
+
+/* this.auth.ResetDemande(this.modelDemande).subscribe(
     resp=>{
    this.n=resp;
    console.log(this.n);
-})
+})*/
     this.modelDemande=new ModelDemande();
     this.modechange=0;
 

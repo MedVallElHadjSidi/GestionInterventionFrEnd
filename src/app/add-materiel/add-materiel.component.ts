@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthentificationService} from '../../services/authentification.service';
+import {Materiel} from '../../Entities/Materiel ';
 
 @Component({
   selector: 'app-add-materiel',
@@ -14,6 +15,7 @@ export class AddMaterielComponent implements OnInit {
   materielAjouter;
   Message:string;
   date=new Date();
+  materiel:Materiel=new Materiel();
 
   constructor(auth:AuthentificationService) {
     this.auth=auth;
@@ -24,6 +26,11 @@ export class AddMaterielComponent implements OnInit {
     this.AgencesNames();
   }
   AjouterMateriel(materiel){
+    this.materiel.nom=materiel.nom;
+    this.materiel.model=materiel.model;
+    this.materiel.processeur=materiel.processeur;
+    this.materiel.agence=materiel.agence;
+
     this.auth.addMateriel(materiel).subscribe(resp=>{
       this.materielAjouter=resp;
       this.modeMateriel=1;
@@ -34,7 +41,11 @@ export class AddMaterielComponent implements OnInit {
 
       this.modeMateriel=0;
       this.Message=error.error.message;
-      })
+      });
+
+    this.modeMateriel=new Materiel();
+
+
 
 
   }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthentificationService} from '../../services/authentification.service';
 import {AppComponent} from '../app.component';
+import {Role} from '../../Entities/Role';
 @Component({
   selector: 'app-add-role',
   templateUrl: './add-role.component.html',
@@ -20,6 +21,7 @@ auth:AuthentificationService;
   listRole;
   useraff;
   modeaffect;
+  role:Role=new Role();
 
 
   constructor(authentificationService:AuthentificationService,app:AppComponent) {
@@ -34,6 +36,7 @@ auth:AuthentificationService;
     this.CherCherUserSansRole();
   }
   AjouterRoles(role){
+    this.role.roleName=role.roleName;
   this.auth.SaveRole(role).subscribe(resp=>{
   this.addrole=resp;
   this.mode=1;
@@ -43,7 +46,10 @@ auth:AuthentificationService;
   this.Message=error.error.message;
 
 
-  })
+  });
+  this.role=new Role();
+
+
 
   }
   ChercherAllRoles(){
@@ -68,12 +74,13 @@ auth:AuthentificationService;
     })
   }
   AffecterRole(ModeAffectation){
+    /*
   this.auth.AffecterRole(ModeAffectation).subscribe(resp=>{
     this.modeaffect=1;
   this.useraff=resp;
   this.Message="afectation avec succes du Role pour user :"+this.useraff.username;
   });
-
+*/
    }
 
 }

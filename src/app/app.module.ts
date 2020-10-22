@@ -23,6 +23,7 @@ import { AddRoleComponent } from './add-role/add-role.component';
 import { AddCategorieComponent } from './add-categorie/add-categorie.component';
 import { AddMaterielComponent } from './add-materiel/add-materiel.component';
 import { GestionServiceComponent } from './gestion-service/gestion-service.component';
+import { RespoEspaceComponent } from './respo-espace/respo-espace.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { GestionServiceComponent } from './gestion-service/gestion-service.compo
     AddRoleComponent,
     AddCategorieComponent,
     AddMaterielComponent,
-    GestionServiceComponent
+    GestionServiceComponent,
+    RespoEspaceComponent
   ],
   imports: [
     BrowserModule,

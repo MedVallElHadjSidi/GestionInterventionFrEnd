@@ -49,7 +49,7 @@ moderespAU;
   this.UserNames();
 
   }
-  AjouterAgence(agenceForm:ModelAgence){
+  AjouterAgence(agenceForm){
   console.log(agenceForm);
     this.auth.SaveAgence(agenceForm).subscribe(resp=>{
       this.agence=resp;
@@ -61,7 +61,9 @@ moderespAU;
       this.mode=0;
       this.Message=error.error.Message;
 
-    })
+    });
+     this.modelag =new ModelAgence();
+
 
 
   }

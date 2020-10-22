@@ -1,4 +1,3 @@
-<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
 <div class="container ">
 
@@ -116,13 +115,13 @@
               <div class="form-group row">
                 <label  class="col-sm-3 col-form-label">CodeService</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control" placeholder="CodeService" ngModel="" name="codeService" required>
+                  <input type="text" class="form-control" placeholder="CodeService" ngModel="" name="codeService" [(ngModel)]="modelservice.codeService" required>
                 </div>
               </div>
               <div class="form-group row">
                 <label  class="col-sm-3 col-form-label">NameService</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control" placeholder="NomService" ngModel="" name="nomService" required>
+                  <input type="text" class="form-control" placeholder="NomService" ngModel="" name="nomService"  [(ngModel)]="modelservice.nomService"  required>
                 </div>
               </div>
 

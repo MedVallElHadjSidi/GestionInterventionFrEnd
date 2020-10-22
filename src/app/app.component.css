@@ -1,3 +1,14 @@
+.mv{
+  background-color: red;
+  color: white;
+
+}
+.m2{
+  width: 180px;
+  height: 50px;
+  margin-top: -5px;
+}
+
 /*Nav s-user*/
 .mynav{
   background-color: forestgreen;
@@ -59,7 +70,10 @@ footer {
     display: block;
 
   }
-
+}
+.rouge{
+  background-color: red;
+  color: white;
 }
 
 .navbar-expand-lg{
@@ -360,4 +374,13 @@ small.dropmenu-item-content {
 
 .btn-xs .notification-icon {
   margin-right: 0.245625rem; }
+
+.mv{
+  background-color: red;
+  color: white;
+}
+
+
+
+
 

@@ -1,8 +1,9 @@
 export class Materiel {
-  private idMateriel;
-  private nom:string;
-  private model:string;
-  private processeur:string;
+  public idMateriel;
+  public nom:string;
+  public model:string;
+  public processeur:string;
+  public  agence:string;
 
 
 }

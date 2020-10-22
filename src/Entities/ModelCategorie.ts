@@ -1,5 +1,5 @@
 export  class ModelCategorie {
-   private  nom:string;
-   private parent:string;
+   public  nom:string;
+   public parent:string;
 
 }

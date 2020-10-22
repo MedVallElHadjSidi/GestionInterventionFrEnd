@@ -1,9 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthentificationService} from '../services/authentification.service';
 import {Router} from '@angular/router';
+import {WebSocketAPI} from '../SocketAngular/WebSocketAPI';
 import {PageRespoInfoComponent} from './page-respo-info/page-respo-info.component';
-import {DomSanitizer, SafeResourceUrl, SafeUrl} from '@angular/platform-browser';
-
 
 
 @Component({
@@ -12,44 +11,37 @@ import {DomSanitizer, SafeResourceUrl, SafeUrl} from '@angular/platform-browser'
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements  OnInit{
-  nouveauxDemandes:any;
-  consulter=0;
+
   demande;
   Message;
   photos;
-  hello=3;
-
-
-
+  nouveauxDemandes:any=undefined;
   date=new Date();
   title = 'Gestion-Interventions-BMCI';
-  sanitize:DomSanitizer;
-  constructor(public authService:AuthentificationService,private router:Router) {
 
+
+  constructor(public authService:AuthentificationService,private router:Router) {
 
 
   }
   ngOnInit() {
-    this.NouveauxDemande();
+
+    /*
+    if(this.pagerespo!=undefined){
+      this.nouveauxDemandes=this.pagerespo.nouveauxDemandes;
+    }*/
 
   }
+
+
   logout() {
     this.authService.logout();
     this.router.navigateByUrl("/login")
   }
 
-  NouveauxDemande(){
-    if(this.authService.isRespoInfo()) {
-
-      this.authService.NouveauMessagesDemande().subscribe(resp => {
-        this.nouveauxDemandes = resp;
 
 
-      })
-    }
-
-  }
-  Consulter(id){
+  /*Consulter(id){
     console.log(id);
 
 
@@ -63,11 +55,9 @@ export class AppComponent implements  OnInit{
        console.log(this.demande)
         console.log(this.photos)
 
-        /*
+
                 const preview = document.querySelector('img');
                 preview.src = this.photos ;
-
-        */
 
 
 
@@ -101,12 +91,13 @@ export class AppComponent implements  OnInit{
 
 
   }
+  */
   /*
   transform(){
     return this.sanitize.bypassSecurityTrustResourceUrl(this.photos);
   }*/
 
-  DemandeRejeter(d){
+/*  DemandeRejeter(d){
     this.authService.DemandeRejeter(d).subscribe(
       resp=>{
 
@@ -114,7 +105,7 @@ export class AppComponent implements  OnInit{
       }
     )
 
-  }
+  }*/
 
 
 

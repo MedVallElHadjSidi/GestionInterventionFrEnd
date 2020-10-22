@@ -9,7 +9,7 @@ import {Router} from '@angular/router';
 })
 export class PageLoginComponent implements OnInit {
   mode=0;
-  date =new  Date()
+  date =new  Date();
 
 
 
@@ -41,11 +41,13 @@ export class PageLoginComponent implements OnInit {
 
 
         }
-      )
+      );
+
 
 
 
 
   }
+
 
 }

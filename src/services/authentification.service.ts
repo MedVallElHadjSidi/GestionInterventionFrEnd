@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {Adresse} from '../Entities/Adresse';
 import {ModelAgence} from '../Entities/ModelAgence';
@@ -68,9 +68,11 @@ ChercherSousCategorieNames(nom:string){
 
    }
    AffecterRole(role){
+    /*
       return this.http.post(this.host+"/affecterRole",role,{headers:new HttpHeaders({'authorization':this.jwtToken})})
+*/
 
-      }
+  }
   affectAgUser(modelAffectAgUser:ModelAffectAgUser){
    return this.http.post(this.host+"/affectAgUser",modelAffectAgUser,{headers:new HttpHeaders({'authorization':this.jwtToken})})
   }
@@ -225,6 +227,8 @@ ChercherSousCategorieNames(nom:string){
 
 
   }
+
+
   NouveauMessagesDemande(){
     console.log("nouveaux avec service")
     return this.http.get(this.host+"/NouveauxDemandes",{headers: new HttpHeaders({'authorization': this.jwtToken})});
@@ -254,5 +258,20 @@ ChercherSousCategorieNames(nom:string){
   DemandeRejeter(d){
     return this.http.get(this.host+"/rejeter/"+d,{headers:new HttpHeaders({'authorization':this.jwtToken})});
   }
+
+  EspcaeIDIntervention(idDemande,username)
+  {
+    console.log(idDemande);
+    console.log(username);
+
+   return this.http.get(this.host+"/espace/"+idDemande+"/"+username,{headers:new HttpHeaders({'authorization':this.jwtToken})});
+ }
+
+   EnvoyerDemandeEspace(envoyerMessage){
+   console.log(envoyerMessage);
+
+      return this.http.post<any>(this.host+"/app/interventionsimple",envoyerMessage,{headers:new HttpHeaders({'authorization':this.jwtToken})});
+       }
+
 
 }
