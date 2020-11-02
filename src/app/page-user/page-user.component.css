@@ -7,11 +7,29 @@
   color: white;
 
 }
+.mn{
+margin-top:15px}
+.dg{
+margin-left:30px;}
+.mk{
+margin-left:50px}
+.kh{
+margin-left:30%;
+margin-top:10px}
 .m2{
   width: 180px;
   height: 50px;
   margin-top: -5px;
 }
+.mvms{
+margin-top:10px;
+margin-left:110px;
+}
+.mvms2{
+margin-top:10px;
+ margin-left:90px;
+
+ }
 
 /*Nav s-user*/
 .mynav{

@@ -12,9 +12,14 @@ export class WebSocketAPI {
   webSocketEndPoint: string = 'http://localhost:8080/ws';
   stompClient: any;
   newmessage;
+  espaceDemande;
+  nouveauxespace=[];
+  messageEnCours;
   app: string = "/app";
   auth:AuthentificationService;
   messageespace;
+  messagesNew2;
+  nv_espace_message=0;
 
   messages:MesMessage;
   username:string;
@@ -26,13 +31,18 @@ export class WebSocketAPI {
   nouveauxDemandes:any;
   nbredemessage;
   nv=[];
-  messagesNew:any;
+  messagesNew=[];
+  espaceEncours=[];
+  espacesusers;
+  etatespace="ouvert";
+  espaceconsulter;
 
 
 
   constructor(authentificationService:AuthentificationService) {
     this.auth=authentificationService;
     this.NouveauxDemande();
+    this.DemandesEncours();
   }
 
 
@@ -81,7 +91,8 @@ export class WebSocketAPI {
         if(_this.messageespace!=undefined) {
           console.log("message recue par url2")
           console.log( _this.messageespace)
-          this.HandleResult(_this.messageespace);
+
+          _this.HandleResult(message);
         }
         console.log("ce message vient du broker2 ")
       });
@@ -104,12 +115,9 @@ export class WebSocketAPI {
   _sendVersEspace(message){
   console.log(message);
     this.stompClient.send("/app/interventionsimple",{},JSON.stringify(message));
+   // this.HandleResult(message);
 
   }
-
-
-
-
 
   notifications(){
 
@@ -118,28 +126,79 @@ export class WebSocketAPI {
     })
   }
   NouveauxDemande() {
-
-
     this.auth.NouveauMessagesDemande().subscribe(resp => {
       this.nouveauxDemandes = resp;
       this.nv=this.nouveauxDemandes;
       this.nbredemessage = this.nv.length;
       console.log(this.nbredemessage);
+      console.log(this.nouveauxDemandes)
 
     })
   }
+  FermerSansResolu(numeroespace){
 
-  HandleResult(message){
-    if (message.body) {
+    this.auth.fermersansResolu(numeroespace).subscribe(
+      resp=>{
 
-      console.log(message);
-      this.messagesNew.push(message);
+        this.espaceconsulter=resp;
+        /*this.etatespace=this.espaceconsulter.etatEspace;
+        console.log(this.etatespace);*/
+      }
+    );
+  }
 
-    }
+  EspaceFermerInterventionResolu(numeroespace){
+  this.auth.EspaceFermerInterventionResolu(numeroespace).subscribe(
+        resp=>{
+
+          this.espaceconsulter=resp;
+          /*this.etatespace=this.espaceconsulter.etatEspace;
+          console.log(this.etatespace);*/
+        }
+      );
 
   }
 
+  HandleResult(message){
+    if (message.body!=undefined) {
+      let messageResult= JSON.parse(message.body);
+
+    //  console.log(message);
+
+        this.messagesNew.push(messageResult);
+
+    }
+  }
+
+  DemandesEncours(){
+
+    this.auth.DemandesEncours().subscribe(resp=>{
+      this.messageEnCours=resp;
+
+    // this.messagesNew=this.messageEnCours;
+    console.log(this.messageEnCours);
+    })
+
+  }
+
+  commentaireEspace(idespace){
+  this.auth.EspaceDemande(idespace).subscribe(resp=>{
+  this.espaceDemande=resp;
+  console.log(this.espaceDemande);
+  this.messagesNew=this.espaceDemande.commentaire;
+
+  })
+
+  }
+  EspaceUserEncours(){
+    this.auth.DemandeEncousUser(this.auth.username).subscribe(
+      resp => {
+        this.espacesusers=resp;
+       // this.espaceEncours=this.espacesusers.commentaireEspace();
 
 
+      }
+    )
+  }
 
 }

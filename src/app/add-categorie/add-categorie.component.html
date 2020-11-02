@@ -58,7 +58,7 @@
             <table class="table table-bordered " >
               <tr ><td>IDCategorie:</td><td>{{categorie.idCategorie}}</td></tr>
               <tr ><td>NomCategorie:</td><td>{{categorie.nom}}</td></tr>
-              <tr ><td>ParentName:</td><td *ngIf="categorie.parent.nom != undefined" >{{categorie.parent.nom}}</td></tr>
+              <tr  *ngIf="categorie.parent.nom != undefined"><td>ParentName:</td><td >{{categorie.parent.nom}}</td></tr>
 
             </table>
           </div>

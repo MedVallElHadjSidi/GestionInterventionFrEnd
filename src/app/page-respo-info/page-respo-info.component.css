@@ -8,13 +8,24 @@
   height: 50px;
   margin-top: -5px;
 }
+.mes{
+ margin-top:5px;
+}
 
 /*Nav s-user*/
 .mynav{
   background-color: forestgreen;
 
 }
+.mvms{
+margin-top:10px;
+margin-left:110px;
+}
+.mvms2{
+margin-top:10px;
+ margin-left:90px;
 
+ }
 .my-image{
   margin-left: -15px;
   margin-top: -20px;

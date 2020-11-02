@@ -45,13 +45,13 @@ ChercherSousCategorieNames(nom:string){
     this.jwtToken = jwt;
     localStorage.setItem('token', jwt);
     let jwtHelperService=new JwtHelperService();
-    let objectHelper=jwtHelperService.decodeToken(this.jwtToken)
+    let objectHelper=jwtHelperService.decodeToken(this.jwtToken);
     this.username=objectHelper.sub;
     console.log(this.username);
-    this.myroles=objectHelper.roles
-
-
+    this.myroles=objectHelper.roles;
   }
+
+
   SaveAdresse(adresse:Adresse){
     return this.http.post(this.host+"/addAdresse",adresse,{headers:new HttpHeaders({'authorization':this.jwtToken})})
   }
@@ -59,14 +59,10 @@ ChercherSousCategorieNames(nom:string){
  return this.http.post(this.host+"/addUser",user,{headers:new HttpHeaders({'authorization':this.jwtToken})})
   }
   addMateriel(materiel:Materiel){
-
   return this.http.post(this.host+"/addMateriel",materiel,{headers:new HttpHeaders({'authorization':this.jwtToken})})
   }
-
   SaveRole(role:Role){
-   return this.http.post(this.host+"/addRole",role,{headers:new HttpHeaders({'authorization':this.jwtToken})})
-
-   }
+   return this.http.post(this.host+"/addRole",role,{headers:new HttpHeaders({'authorization':this.jwtToken})})}
    AffecterRole(role){
     /*
       return this.http.post(this.host+"/affecterRole",role,{headers:new HttpHeaders({'authorization':this.jwtToken})})
@@ -235,6 +231,29 @@ ChercherSousCategorieNames(nom:string){
 
   }
 
+  DemandesEncours(){
+    return this.http.get(this.host+"/DemandesEncours",{headers: new HttpHeaders({'authorization': this.jwtToken})});
+
+
+  }
+  EspaceDemande(id){
+  return this.http.get(this.host+"/EspaceDemande/"+id,{headers: new HttpHeaders({'authorization': this.jwtToken})});
+
+  }
+  DemandeEncousUser(username){
+    return this.http.get(this.host+"/DemandeEncoursUser/"+username,{headers: new HttpHeaders({'authorization': this.jwtToken})});
+
+
+  }
+  fermersansResolu(id){
+  return this.http.get(this.host+"/fermersansResolu/"+id,{headers: new HttpHeaders({'authorization': this.jwtToken})});
+
+  }
+  EspaceFermerInterventionResolu(id){
+  return this.http.get(this.host+"/EspaceFermerInterventionResolu/"+id,{headers: new HttpHeaders({'authorization': this.jwtToken})});
+
+  }
+
   ChercherByidDemande(id){
     return this.http.get(this.host+"/ChercherByidDemande/"+id,{headers: new HttpHeaders({'authorization': this.jwtToken})});
 
@@ -258,20 +277,26 @@ ChercherSousCategorieNames(nom:string){
   DemandeRejeter(d){
     return this.http.get(this.host+"/rejeter/"+d,{headers:new HttpHeaders({'authorization':this.jwtToken})});
   }
-
   EspcaeIDIntervention(idDemande,username)
   {
     console.log(idDemande);
     console.log(username);
-
    return this.http.get(this.host+"/espace/"+idDemande+"/"+username,{headers:new HttpHeaders({'authorization':this.jwtToken})});
  }
+   EnvoyerDemandeEspace(message){
+   console.log(message);
+      return this.http.post<any>(this.host+"/app/interventionsimple",message,{headers:new HttpHeaders({'authorization':this.jwtToken})});}
 
-   EnvoyerDemandeEspace(envoyerMessage){
-   console.log(envoyerMessage);
+  DemandeResolus(){
+  let username=this.username;
+    return this.http.get(this.host+"/DemandeUserResolus/"+username,{headers: new HttpHeaders({'authorization': this.jwtToken})});
 
-      return this.http.post<any>(this.host+"/app/interventionsimple",envoyerMessage,{headers:new HttpHeaders({'authorization':this.jwtToken})});
-       }
+  }
+  DemandeRejeterUser(){
+  let username=this.username;
+    return this.http.get(this.host+"/DemandeRejeterUser/"+username,{headers: new HttpHeaders({'authorization': this.jwtToken})});
 
+
+  }
 
 }

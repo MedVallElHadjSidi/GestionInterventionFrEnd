@@ -24,6 +24,7 @@ import { AddCategorieComponent } from './add-categorie/add-categorie.component';
 import { AddMaterielComponent } from './add-materiel/add-materiel.component';
 import { GestionServiceComponent } from './gestion-service/gestion-service.component';
 import { RespoEspaceComponent } from './respo-espace/respo-espace.component';
+import { TableauserviceEncoursComponent } from './tableauservice-encours/tableauservice-encours.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { RespoEspaceComponent } from './respo-espace/respo-espace.component';
     AddCategorieComponent,
     AddMaterielComponent,
     GestionServiceComponent,
-    RespoEspaceComponent
+    RespoEspaceComponent,
+    TableauserviceEncoursComponent
   ],
   imports: [
     BrowserModule,

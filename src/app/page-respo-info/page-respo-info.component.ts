@@ -12,8 +12,19 @@ import {EnvoyerMessage} from '../../Entities/EnvoyerMessage';
   styleUrls: ['./page-respo-info.component.css']
 })
 export class PageRespoInfoComponent implements OnInit {
-  espaceinter=0;
+  nouveauxDemandeEncours:any;
+  espaceMessages;
+  espacevue=0;
+  encours=1;
+  numeroespace;
+  avantEspace=0;
+
+  interventions;
+
+
+  espaceinter = 0;
   sms;
+  msgnew;
   notification;
   webSocket: WebSocketAPI;
   auth: AuthentificationService;
@@ -21,11 +32,11 @@ export class PageRespoInfoComponent implements OnInit {
   nouveauxDemandes;
   Message;
   demande;
-  consulter=0;
+  consulter = 0;
   photos;
   index;
   espaceresnew;
-  envoyerMessage:EnvoyerMessage=new EnvoyerMessage();
+  envoyerMessage: EnvoyerMessage = new EnvoyerMessage();
 
 
   constructor(authentificationService: AuthentificationService, private  router: Router) {
@@ -40,26 +51,52 @@ export class PageRespoInfoComponent implements OnInit {
   ngOnInit(): void {
     this.webSocket.connecter();
     this.webSocket.NouveauxDemande();
+   /* this.webSocket.DemandesEncours();
+*/
+  }
+
+  consulterEspace(esp){
+  this.espaceresnew=undefined;
+  this.espaceMessages=esp.commentaire;
+  this.webSocket.messagesNew=esp.commentaire;
+  this.espacevue=1;
+  this.encours=0;
+  this.numeroespace=esp.idEspace;
+  this.webSocket.commentaireEspace(this.numeroespace);
+
+
+ console.log(this.espaceMessages);
+  }
+  fermerEspace(){
+  this.espacevue=0;
+    this.encours=1;
+    this.espaceinter=0;
+  }
+  espaceInterRespo(idDemande){
+
+    this.avantEspace=1;
+
+  }
+  EnvoyerIntervention(inter){
 
   }
 
-
-  Consulter(id,index){
+  Consulter(id, index) {
     console.log(id);
     console.log(index)
-    this.index=index;
-    this.webSocket.nouveauxDemandes.splice(this.index,1)
+    this.index = index;
+    this.webSocket.nouveauxDemandes.splice(this.index, 1)
     console.log(this.webSocket.nouveauxDemandes.length)
-    this.index=0;
-    this.webSocket.nbredemessage=this.webSocket.nbredemessage-1;
+    this.index = 0;
+    this.webSocket.nbredemessage = this.webSocket.nbredemessage - 1;
 
 
     this.auth.ChercherByidDemande(id).subscribe(
-      resp=>{
-        this.demande=resp;
+      resp => {
+        this.demande = resp;
 
-        this.consulter=1;
-        this.photos=atob(this.demande.panne.photos);
+        this.consulter = 1;
+        this.photos = atob(this.demande.panne.photos);
         console.log(this.demande)
         console.log(this.photos)
 
@@ -88,92 +125,102 @@ export class PageRespoInfoComponent implements OnInit {
         //  console.log(this.url);
 
 
-
       }
-      ,error => {
-        this.Message=error.Message;
+      , error => {
+        this.Message = error.Message;
       }
-
     )
 
 
-
-
-
   }
-  DemandeRejeter(d){
+
+  DemandeRejeter(d) {
     this.auth.DemandeRejeter(d).subscribe();
     console.log(d);
-    this.consulter=0;
+    this.consulter = 0;
 
 
   }
+
   logout() {
     this.auth.logout();
     this.router.navigateByUrl("/login")
   }
 
-  espaceRespp(id){
+  espaceRespp(id) {
     console.log(id);
-    this.espaceinter=1;
-    this.consulter=0;
+    this.espaceinter = 1;
+    this.consulter = 0;
     console.log(id);
     console.log(this.auth.username);
-    let idDemande=id;
+    let idDemande = id;
+     this.webSocket.messagesNew=[];
     console.log(idDemande)
 
-   this.auth.EspcaeIDIntervention(idDemande,this.auth.username).subscribe(resp=>{
-   this.espaceresnew=resp;
-      console.log(this.espaceresnew)
-   }
-);
+    this.auth.EspcaeIDIntervention(idDemande, this.auth.username).subscribe(resp => {
+
+        this.espaceresnew = resp;
+
+        this.webSocket.nv_espace_message=1;
+        console.log(this.webSocket.nv_espace_message);
+        console.log(this.espaceresnew);
+      }
+    );
+
 
   }
+  EnvoyerMessages(msg){
+    this.envoyerMessage.idespace = this.numeroespace;
+    this.envoyerMessage.username = this.auth.username;
+    this.envoyerMessage.message=msg.message;
+      this.webSocket._sendVersEspace(this.envoyerMessage);
+      this.envoyerMessage = new EnvoyerMessage();
 
-  EnvoyerMessage(meesse){
-     this.envoyerMessage.idespace= this.espaceresnew;
-      this.envoyerMessage.username=this.auth.username;
 
-  console.log(meesse);
-  console.log(meesse.votremessage);
+  }
+  DemandeEncours(){
+    this.auth.DemandesEncours().subscribe(resp=>{
+      this.nouveauxDemandeEncours=resp;
+      console.log(this.nouveauxDemandeEncours)
 
-    this.envoyerMessage.message=meesse.message;
+    })
+  }
+
+  EnvoyerMessage(meesse) {
+    this.envoyerMessage.idespace = this.espaceresnew;
+    this.envoyerMessage.username = this.auth.username;
+
+    console.log(meesse);
+    console.log(meesse.votremessage);
+
+    this.envoyerMessage.message = meesse.message;
     console.log(this.envoyerMessage);
     this.webSocket._sendVersEspace(this.envoyerMessage);
 
-    this.envoyerMessage=new EnvoyerMessage();
+    /* this.auth.EnvoyerDemandeEspace(this.envoyerMessage).subscribe(resp=>{
+     this.msgnew=resp})
 
+      this.envoyerMessage=new EnvoyerMessage();
+
+    }*/
+
+
+    /* DemandeRejeter(d){
+       this.auth.DemandeRejeter(d).subscribe();
+       console.log(d);
+       this.consulter=0;
+
+
+     }
+
+
+
+     espaceRespp(id){
+       console.log(id);
+       this.espaceinter=1;
+       this.consulter=0;
+     }
+   */
   }
-
-
-
- /* DemandeRejeter(d){
-    this.auth.DemandeRejeter(d).subscribe();
-    console.log(d);
-    this.consulter=0;
-
-
-  }
-
-
-
-  espaceRespp(id){
-    console.log(id);
-    this.espaceinter=1;
-    this.consulter=0;
-  }
-*/
 }
-
-
-
-
-
-
-
-
-
-
-
-
 

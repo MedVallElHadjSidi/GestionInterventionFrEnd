@@ -14,12 +14,14 @@ import {AddCategorieComponent} from './add-categorie/add-categorie.component';
 import {AddMaterielComponent} from './add-materiel/add-materiel.component';
 import {GestionServiceComponent} from './gestion-service/gestion-service.component';
 import {RespoEspaceComponent} from './respo-espace/respo-espace.component';
+import {TableauserviceEncoursComponent} from './tableauservice-encours/tableauservice-encours.component';
 
 const routes: Routes = [
   {path:'login',component:PageLoginComponent},
   {path:'admin',component:PageAdminComponent},
   {path:'user',component:PageUserComponent},
   {path:'respInfo',component:PageRespoInfoComponent},
+  {path:'tableauxServiceEnCours',component:TableauserviceEncoursComponent},
   {path:'respoespace',component:RespoEspaceComponent},
   {path:'intervenant',component:PageIntervenantComponent},
   {path:'CreeDemande',component:NouveauDemandeComponent},
@@ -30,6 +32,7 @@ const routes: Routes = [
   {path:'addCategorie',component:AddCategorieComponent},
   {path:'addMateriel',component:AddMaterielComponent},
   {path:'gestionService',component:GestionServiceComponent},
+
   {path:'',redirectTo:'login',pathMatch:'full'}
 
 ];
