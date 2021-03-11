@@ -1,0 +1,87 @@
+
+    <div class="container mt-2"  *ngIf="consulter==1">
+      <div class="row ">
+        <div class="col-md-10 offset-md-1 ">
+            
+        <div class="card " >
+            <div class="card-header">
+              info Demande
+            </div>
+            <div class="card-body">
+  
+              <div class="container "  >
+                <table class="table table-bordered " >
+                  <tr><td>Utilisateur emetteur:</td><td>{{demande.utilisateurs.nom}}</td></tr>
+                  <tr><td>Agence:</td><td>{{demande.utilisateurs.agence.nomAgence}}</td></tr>
+                  <tr><td>Commune Agence:</td><td>{{demande.utilisateurs.agence.adresse.commune}}</td></tr>
+                  <tr><td>La rue:</td><td>{{demande.utilisateurs.agence.adresse.rue}}</td></tr>
+                  <tr ><td>Panne:</td><td>{{demande.panne.categorie.nom}}</td></tr>
+                  <tr ><td>Etat panne :</td><td>{{demande.panne.etatPanne}}</td></tr>
+  
+                  <tr ><td>description:</td><td>{{demande.panne.description}}</td></tr>
+                  <tr><td>image:</td><td><img [src]="photos"  class="img-thumbnail" /></td></tr>
+                </table>
+                <div *ngIf="avantEspace==1">
+                  <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="intervenantLibre.length==0">
+                     Aucun intervenant  libre <strong>veuillez patienter!</strong>.
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="femerAvecAttend(demande.id_Demande)">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                     <form #fa="ngForm" (ngSubmit)="EnvoyerIntervention(fa.value)" >
+  
+                       <div class="form-group row" *ngIf="intervenantLibre.length>0">
+                         <label  class="col-sm-2 col-form-label">intervenant</label>
+                         <div class="col-sm-10">
+                           <select  class="custom-select" ngModel="" name="intervenant" required [(ngModel)]="modelDemandeIntervenant.intervenant">
+  
+                             <option  *ngFor="let n of intervenantLibre"  [value]="n">{{n}}</option>
+  
+                           </select> </div>
+                       </div>
+  
+  
+                        <div class="form-group row" *ngIf="intervenantLibre.length>0">
+                          <div class="col-sm-10">
+                            <button type="submit" [disabled]="!fa.valid" class="btn btn-success" >Envoyer</button>
+                          </div>
+                        </div>
+                      </form>
+                </div>
+  
+  
+                 <div class="btn-group pull-right" *ngIf="avantEspace==0">
+                  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                    Accepter
+                  </button>
+                  <div class="dropdown-menu">
+                    <a class="dropdown-item" (click)="espaceRespp(demande.id_Demande)">Intervenir vous meme via espce</a>
+                    <a class="dropdown-item "  (click)="espaceInterRespo(demande.id_Demande)">Affecter un  intervenant</a>
+                  </div>
+  
+  
+                    <button type="button" class="btn badge-danger  btn-space" (click)="DemandeRejeter(demande.id_Demande)" >Refuser</button>
+  
+                </div>
+  
+                <!--          <div class=container>
+                             <div class="dropdown">
+                               <button class="btn btn-success" data-toggle="dropdown" >Accepter</button>
+                               <ul class="dropdown-menu" >
+                                 <li  class="dropmenu-item"><a>Intervenir vous meme</a></li>
+                                 <li class="dropmenu-item"><a>Affecter un  intervenant</a></li>
+                               </ul>
+  
+                               <button class="btn badge-danger" (click)="DemandeRejeter(demande.id_Demande)"  >refuser</button>
+                             </div>
+             -->
+  <flash-messages></flash-messages>
+  
+              </div>
+  
+            </div>
+          </div>
+        </div>
+  
+      </div>
+    

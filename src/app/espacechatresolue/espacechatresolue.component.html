@@ -1,0 +1,181 @@
+<!--<div class="container-fluid" >
+    <div class="container md ">
+      <div class="row">
+        <div class="col-md-12 ">
+
+<div class="row mvms" >
+    <div class="col-md-4 portlets">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <div class="pull-left">Message</div>
+          <div class="widget-icons pull-right">
+           <a (click)="fermerEspace()" class="wclose"><i class="fa fa-times"></i></a>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+
+        <div class="panel-body" >
+
+          <div class="padd sscroll">
+
+            <ul class="chats" *ngFor="let mse of webSocket.messagesNew" >
+
+
+              <li class="by-me">
+                <div class="avatar pull-left">
+                  <i class="icon_profile"></i>
+
+                </div>
+               <div >
+                  <div class="chat-content mes" >
+                    <div class="chat-meta">{{mse.nom}}<span class="pull-right">{{mse.date}}</span></div>
+                    {{mse.message}}.
+
+                    <div class="clearfix"></div>
+
+                  </div>
+
+
+                </div>
+
+              </li>
+            </ul>
+
+          </div>
+
+          <div class="widget-foot"   *ngIf="webSocket.espaceDemande!=undefined  ">
+
+            <form class="form-inline"  #messagesp="ngForm" (ngSubmit)="EnvoyerMessages(messagesp.value)" *ngIf= "webSocket.espaceDemande.etatEspace=='ouvert'">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Taper votre message..." ngModel=""  name="message"  [(ngModel)]="envoyerMessage.message">
+              </div>
+              <button type="submit" [disabled]="!messagesp.valid" class="btn btn-info">Envoyer</button>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>-->
+  <!--- Debut -->
+  <div class="container-fluid " *ngIf="webSocket.espaceDemande" >
+    <div class="container ml-3" >
+<div class="row">
+  <div class="col-md-10 offset-md-3 "  >
+    <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#exampleModalCenter" (click)="InfoEspace()">
+      Info Espace
+    </button>
+    
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Information de l'espace</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" *ngIf="listUser!=undefined">
+            <h6>cette espcae est une conversateion entre :</h6>
+
+            <ul class="list-group">
+              <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let u of webSocket.espaceDemande.utilisateurs"><h5>{{u.username}}</h5></li>
+            </ul>
+           
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+
+</div>
+
+      <div class="row">
+        <div class="col-md-10 offset-md-2">  
+    <div class="col-md-8 portlets">
+  
+      <div class="panel panel-default" *ngIf="webSocket.espaceDemande!=undefined">
+        <div class="panel-heading">
+          <div class="pull-left">Message</div>
+          <div class="widget-icons pull-right">
+            <a (click)="fermerEspace()" class="wclose"><i class="fa fa-times"></i></a>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        <div class="panel-body" >
+          <div class="container">
+          <div class="padd sscroll">
+            <ul class="chats" *ngFor="let mse of webSocket.messagesNew" >
+              
+                <div class="avatar pull-left">
+                <!--  <i class="icon_profile"></i>-->
+               
+                </div>
+                <div class="by-me" *ngIf="mse.nom==auth.username">
+                  <div class="avatar pull-left">
+                    <img src="assets/menu/img/user.jpg" alt="" />
+                  </div>
+                  <div class="chat-content"  >
+
+                    <div class="chat-meta" ><h6>{{mse.nom}}</h6><span class="pull-right"><h6>{{mse.date | date: "HH:mm"}}</h6>}</span></div>
+                    {{mse.message}}.
+                    <div class="clearfix">
+                    
+                    </div>
+                  </div>
+                </div>
+                <P></P>
+                <div class="by-other" *ngIf="mse.nom!=auth.username">
+                  <div class="avatar pull-right">
+                    <img src="assets/menu/img/user.jpg" alt="" />
+                  </div>
+                  <div class="chat-content"  >
+
+                    <div class="chat-meta" ><h6>{{mse.date | date: "HH:mm"}}</h6><span class="pull-right"><h6>{{mse.nom}}</h6></span></div>
+                    {{mse.message}}.
+                    <div class="clearfix">
+                   
+                    </div>
+                  </div>
+                  </div>
+                  <P></P>
+                
+              
+
+
+            </ul>
+          </div>
+          <div class="widget-foot"  *ngIf="webSocket.espaceDemande.etatEspace!='Fermer'">
+            <form class="form-inline"  #messagesp="ngForm" (ngSubmit)="EnvoyerMessages(messagesp.value)">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Taper votre message..." ngModel=""  name="message"  [(ngModel)]="envoyerMessage.message" style="margin-left:15px">
+              </div>
+               <!--<a class="btn btn-primary" href="#"><i class="icon_plus_alt2"></i></a>
+                <a class="btn btn-success" href="#"><i class="icon_check_alt2"></i></a>
+                <a class="btn btn-danger" href="#"><i class="icon_close_alt2"></i></a>-->
+                <button type="submit" [disabled]="!messagesp.valid" class="btn btn-info" style="margin-left:1px">Envoyer</button>
+            <p></p>
+            </form>
+  
+          </div>
+        </div>
+        </div>
+        <p></p>
+        <p></p>
+      </div>
+    </div>
+  </div>
+          </div>
+        </div>
+      </div>
+
+
+<!-- Fin -->

@@ -31,10 +31,11 @@ export class AddMaterielComponent implements OnInit {
     this.materiel.processeur=materiel.processeur;
     this.materiel.agence=materiel.agence;
 
-    this.auth.addMateriel(materiel).subscribe(resp=>{
+    this.auth.addMateriel(this.materiel).subscribe(resp=>{
       this.materielAjouter=resp;
       this.modeMateriel=1;
       this.Message="Insertion avec success du Materiel";
+      this.materiel=new Materiel();
 
       }
     ,error => {

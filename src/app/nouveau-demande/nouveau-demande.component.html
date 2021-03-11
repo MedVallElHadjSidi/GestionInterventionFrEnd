@@ -1,75 +1,112 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">Tasks</a>
+<div class="container">
+  <div class="row">
+    <div class="col-md-10  offset-md-1">
 
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav">
-      <li class="nav-item dropdown dropdown-notifications open">
-        <a href="#notifications-panel" class="nav-link dropdown-toggle" data-toggle="dropdown">
-          <i data-count="2" class="oi oi-bell notification-icon" aria-label="Nofitication centre"></i>
-        </a>
-
-        <div class="dropdown-container">
-          <div class="dropdown-toolbar">
-            <div class="dropdown-toolbar-actions">
-              <a href="#"><i class="glyphicon glyphicon-search"></i> View All</a>
-            </div>
-            <h3 class="dropdown-toolbar-title">Recent (3)</h3>
-          </div><!-- /dropdown-toolbar -->
-
-          <ul class="dropdown-menu notifications">
-            <li class="notification">
-              <div class="media">
-                <img data-src="holder.js/50x50?bg=cccccc" class="mr-2 img-circle" alt="50x50" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2250%22%20height%3D%2250%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2050%2050%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_163b3713d4b%20text%20%7B%20fill%3A%23919191%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A10pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_163b3713d4b%22%3E%3Crect%20width%3D%2250%22%20height%3D%2250%22%20fill%3D%22%23cccccc%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%226.4765625%22%20y%3D%2229.55625%22%3E50x50%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true" style="width: 50px; height: 50px;">
-                <div class="media-body">
-                  <strong class="notification-title"><a href="#">Dave Lister</a> commented on <a href="#">DWARF-13 - Maintenance</a></strong>
-                  <p class="notification-desc">I totally don't wanna do it. Rimmer can do it.</p>
-
-                  <div class="notification-meta">
-                    <small class="timestamp">27. 11. 2015, 15:00</small>
-                  </div>
-                </div>
-              </div>
-            </li>
-
-            <li class="notification">
-              <div class="media">
-                <img data-src="holder.js/50x50?bg=cccccc" class="mr-2 img-circle" alt="50x50" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2250%22%20height%3D%2250%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2050%2050%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_163b3713d4c%20text%20%7B%20fill%3A%23919191%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A10pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_163b3713d4c%22%3E%3Crect%20width%3D%2250%22%20height%3D%2250%22%20fill%3D%22%23cccccc%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%226.4765625%22%20y%3D%2229.55625%22%3E50x50%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true" style="width: 50px; height: 50px;">
-                <div class="media-body">
-                  <strong class="notification-title"><a href="#">Nikola Tesla</a> resolved <a href="#">T-14 - Awesome stuff</a></strong>
-
-                  <p class="notification-desc">Resolution: Fixed, Work log: 4h</p>
-
-                  <div class="notification-meta">
-                    <small class="timestamp">27. 10. 2015, 08:00</small>
-                  </div>
-
-                </div>
-              </div>
-            </li>
-
-            <li class="notification">
-              <div class="media">
-                <img data-src="holder.js/50x50?bg=cccccc" class="mr-2 img-circle" alt="50x50" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2250%22%20height%3D%2250%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2050%2050%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_163b3713d4d%20text%20%7B%20fill%3A%23919191%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A10pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_163b3713d4d%22%3E%3Crect%20width%3D%2250%22%20height%3D%2250%22%20fill%3D%22%23cccccc%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%226.4765625%22%20y%3D%2229.55625%22%3E50x50%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true" style="width: 50px; height: 50px;">
-                <div class="media-body">
-                  <strong class="notification-title"><a href="#">James Bond</a> resolved <a href="#">B-007 - Desolve Spectre organization</a></strong>
-
-                  <div class="notification-meta">
-                    <small class="timestamp">1. 9. 2015, 08:00</small>
-                  </div>
-
-                </div>
-              </div>
-            </li>
-          </ul>
+      <div class="card">
+        <div class="card-header">
+          <h6> Creation d'une Demande</h6>
         </div>
-      </li><!-- /dropdown -->
+        <div class="card-body">
+          <form #f="ngForm" (ngSubmit)="EnvoyerDemande(f.value)" enctype = "multipart / form-data">
+            <div class="form-group row"  *ngIf="modepanne==1" >
+              <label class="col-sm-2 col-form-label">Panne</label>
+                <div class="col-sm-10">
+                    <select  class="custom-select  dropdown"  #mysection ngModel name="type" [(ngModel)]="modelDemande.type"  required  (change)="notreParent(mysection.value)"  [value]="modelDemande.type"   >
+                      <optgroup *ngIf="modechange!=1" >
+                        <option   [hidden]="true"  ></option>
+                        <option  class="dropdown-item" *ngFor="let m of listPanneParent"  >{{m}}</option>
+                      </optgroup>
+                      <optgroup  *ngIf="modechange==1" >
+                        <p></p>
+                        <option   [hidden]="true"  >{{modelDemande.type}}</option>
+                          <option  *ngFor="let s of listSousCategories" >{{s}}</option>
+                      </optgroup>
+
+                    </select>
 
 
-    </ul>
+
+                  </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label">Etat du  Panne</label>
+              <div class="col-sm-10">
+                <select class="custom-select" ngModel="" name="etat" required="" [(ngModel)]="modelDemande.etat">
+                  <option selected>Urgent</option>
+                  <option value="un peu Urgent">un peu Urgent </option>
+
+                </select>
+              </div>
+            </div>
+            <div class="form-group row" *ngIf="modeMateriel==1" >
+              <label  class="col-sm-2 col-form-label">Materiel</label>
+              <div class="col-sm-10">
+                <select class="custom-select" ngModel="" name="materiel" required [(ngModel)]="modelDemande.materiel">
+                  <option *ngFor="let m of listMateriels"   >{{m}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label">Description</label>
+              <div class="col-sm-10">
+                <div class="form-group green-border-focus">
+                  <label for="exampleFormControlTextarea5">description du panne rencontrer</label>
+                  <textarea class="form-control" id="exampleFormControlTextarea5" rows="3" ngModel="" name="description" required="" [(ngModel)]="modelDemande.description" accept="image/*"></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label">Joindre ficher</label>
+              <div class="col-sm-10">
+                <div class="custom-file mb-3">
+                  <input type="file" class="custom-file-input" id="customFile" ngModel="" name="filename" required="" (change)="onFileChanged($event)"  accept=".png, .gif, .jpeg, .jpg" >
+                  <label class="custom-file-label" for="customFile">Chosir votre image</label>
+                </div>
+
+                <img [src]="modelDemande.image" height="200" alt="Image preview..." *ngIf="modelDemande.image">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label">Service</label>
+              <div class="col-sm-10">
+
+                <select class="custom-select" ngModel=""  name="service" required="" [(ngModel)]="modelDemande.service">
+                  <option selected>Informatique</option>
+
+                </select>
+              </div>
+            </div>
+
+
+
+            <div class="form-group row">
+              <div class="col-sm-10">
+                <button type="submit" class="btn btn-success" [disabled]="!f.valid" id="alertEnvoyer">Envoyer</button>
+              </div>
+            </div>
+
+          </form>
+          
+          
+    <!--     <div class="alert alert-success alert-dismissible fade show" role="alert" *ngIf="alert==1">
+             Votre demande est envoyer avec <strong>succès!</strong>.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="fermerAlert()" >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>-->
+          <flash-messages></flash-messages>
+        </div>
+      </div>
+
+
+
+    </div>
+
+
   </div>
-</nav>
 
+
+</div>
+<P></P>
+<P></P>

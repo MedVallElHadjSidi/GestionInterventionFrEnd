@@ -1,0 +1,48 @@
+<div class="container-fluid">
+    
+      <div class="row">
+        <div class="col-md-10  offset-md-1">
+          <div class="card " *ngIf="demandechercherRejeter!=undefined">
+            <div class="card-header">
+              info DemandeRejeter
+              <div class="widget-icons pull-right">
+                <!--  <a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a>
+                  <a href="#" class="wclose"><i class="fa fa-times"></i></a>-->
+                <a (click)="fermerComplet()" class="wclose"><i class="fa fa-times"></i></a>
+        
+              </div>
+            </div>
+            <div class="card-body">
+                <div class="col-md-10 ">
+                <table class="table table-bordered " >
+                  <tr ><td>Etat Demande:</td><td>{{demandechercherRejeter.etat_Demande}}</td></tr>
+                  <tr ><td>Etat panne :</td><td>{{demandechercherRejeter.panne.etatPanne}}</td></tr>
+                  <tr><td>utilisateur:</td><td>{{demandechercherRejeter.utilisateurs.username}}</td></tr>
+                  <tr><td>email:</td><td>{{demandechercherRejeter.utilisateurs.email}}</td></tr>
+                  <tr><td>agence:</td><td>{{demandechercherRejeter.utilisateurs.agence.nomAgence}}</td></tr>
+                  <tr ><td>description:</td><td>{{demandechercherRejeter.panne.description}}
+                    <tr><td><img [src]="photos"></td></tr>
+                  </td></tr>
+                </table>
+  
+                <!--          <div class=container>
+                             <div class="dropdown">
+                               <button class="btn btn-success" data-toggle="dropdown" >Accepter</button>
+                               <ul class="dropdown-menu" >
+                                 <li  class="dropmenu-item"><a>Intervenir vous meme</a></li>
+                                 <li class="dropmenu-item"><a>Affecter un  intervenant</a></li>
+                               </ul>
+  
+                               <button class="btn badge-danger" (click)="DemandeRejeter(demande.id_Demande)"  >refuser</button>
+                             </div>
+             -->
+  
+  
+  
+            </div>
+        </div>
+          </div>
+        </div>
+  
+      </div>
+    </div>

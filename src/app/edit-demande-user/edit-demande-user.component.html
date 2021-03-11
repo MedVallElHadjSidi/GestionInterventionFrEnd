@@ -1,0 +1,122 @@
+<div class="container">
+    <div class="row">
+      <div class="col-md-10  offset-md-1">
+  
+        <div class="card">
+          <div class="card-header">
+            <h6> Modification d'une Demande</h6>
+          </div>
+          <div class="card-body">
+            <form #f="ngForm" (ngSubmit)="EditerDemande(f.value)" enctype = "multipart / form-data" *ngIf="editDemande!=undefined">
+              <div class="form-group row"  >
+                <label class="col-sm-2 col-form-label">Panne</label>
+                  <div class="col-sm-10">
+                      <select  class="custom-select  dropdown"  #mysection ngModel name="type" [(ngModel)]="editDemande.type"  required  (change)="notreParent(mysection.value)"  >
+                        <option [ngValue]="editDemande.type" selected [hidden]="true">{{editDemande.type}}</option>
+                        <optgroup *ngIf="modechange!=1" >
+                           
+                          <option  class="dropdown-item" *ngFor="let m of listPanneParent"  >{{m}}</option>
+                        </optgroup>
+                        <optgroup  *ngIf="modechange==1" >
+                          <p></p>
+                          <option   [hidden]="true"  >{{editDemande.type}}</option>
+                            <option  *ngFor="let s of listSousCategories" >{{s}}</option>
+                        </optgroup>
+  
+                      </select>
+  
+  
+  
+                    </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Etat du  Panne</label>
+                <div class="col-sm-10">
+                  <select class="custom-select" ngModel="" name="etat" required="" [(ngModel)]="editDemande.etat" >
+                    <optgroup *ngIf="editDemande.etat=='Urgent'">
+                      <option selected [ngValue]="editDemande.etat" >{{editDemande.etat}}</option>
+                      <option value="un peu Urgent" >un peu Urgent </option>
+                     
+                    </optgroup>
+                    <optgroup *ngIf="editDemande.etat!='Urgent'">
+                       
+                   <option value="un peu Urgent" *ngIf="editDemande.etat!='Urgent'" [ngValue]="editDemande.etat"  selected>un peu Urgent </option>
+                   <option  >Urgent</option>
+                    </optgroup>
+             
+  
+                  </select>
+                </div>
+              </div>
+              <div class="form-group row" *ngIf="modeMateriel==1" >
+                <label  class="col-sm-2 col-form-label">Materiel</label>
+                <div class="col-sm-10">
+                  <select class="custom-select" ngModel="" name="materiel" required [(ngModel)]="editDemande.materiel">
+                    <option *ngFor="let m of listMateriels"   >{{m}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Description</label>
+                <div class="col-sm-10">
+                  <div class="form-group green-border-focus">
+                    <label for="exampleFormControlTextarea5">description du panne rencontrer</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea5" rows="3" ngModel="" name="description" required="" [(ngModel)]="editDemande.description" accept="image/*" [value]="editDemande.description" >{{editDemande.description}}</textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Joindre ficher</label>
+                <div class="col-sm-10">
+                  <div class="custom-file mb-3">
+                    <input type="file" class="custom-file-input" id="customFile" ngModel="" name="filename"  (change)="onFileChanged($event)"  accept=".png, .gif, .jpeg, .jpg" >
+                    <label class="custom-file-label" for="customFile">Chosir votre image</label>
+                  </div>
+  
+                  <img [src]="editDemande.image" height="200" alt="Image preview..." *ngIf="editDemande.image">
+                </div>
+              </div>
+  
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Service</label>
+                <div class="col-sm-10">
+  
+                  <select class="custom-select" ngModel=""  name="service" required="" [(ngModel)]="editDemande.service"  >
+                    <option [ngValue]="editDemande.service" selected>{{editDemande.service}}</option>
+                  
+                  </select>
+                </div>
+              </div>
+  
+  
+  
+              <div class="form-group row">
+                <div class="col-sm-10">
+                  <button type="submit" class="btn btn-success" [disabled]="!f.valid" id="alertEnvoyer">Envoyer</button>
+                </div>
+              </div>
+  
+            </form>
+            
+            
+      <!--     <div class="alert alert-success alert-dismissible fade show" role="alert" *ngIf="alert==1">
+               Votre demande est envoyer avec <strong>succès!</strong>.
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="fermerAlert()" >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>-->
+      
+          </div>
+        </div>
+  
+  
+  
+      </div>
+  
+  
+    </div>
+  
+  
+  </div>
+  <P></P>
+  <P></P>

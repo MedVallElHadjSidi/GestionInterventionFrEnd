@@ -25,6 +25,18 @@ margin-top:10px}
 margin-top:10px;
 margin-left:110px;
 }
+.nav-pills > li>a.active{
+    background-color:DarkGray;
+}
+.mvch{
+margin-left:130px;
+}
+.mvch2{
+margin-left:180px;
+}
+.dc{
+margin-top:10px;
+}
 .mvms2{
 margin-top:10px;
  margin-left:90px;
@@ -39,9 +51,9 @@ margin-top:10px;
 
 .my-image{
   margin-left: -15px;
-  margin-top: -20px;
-  padding: 10px;
-  margin-bottom: -13px;
+  margin-top: 0px;
+  padding: 5px;
+  margin-bottom: 0px;
   width: 180px;
   height: 100%;
   background-color: white;
@@ -51,7 +63,7 @@ margin-top:10px;
   margin-top: 5px;
 }
 .mynav .navbar-brand{
-  color: aliceblue;
+  color: rgb(11, 18, 24);
 }
 .mynav .navbar-brand:hover{
   color: aquamarine;
@@ -271,12 +283,12 @@ small.dropmenu-item-content {
 .dropdown-inverse .dropdown-menu > .active > a:hover,
 .dropdown-inverse .dropdown-menu > .active > a:focus {
   color: #fff;
-  background-color: #337ab7;
+  background-color: #33b78b;
 }
 .dropdown-inverse .dropdown-menu > .disabled > a,
 .dropdown-inverse .dropdown-menu > .disabled > a:hover,
 .dropdown-inverse .dropdown-menu > .disabled > a:focus {
-  color: #777777;
+  color: #8b6666;
 }
 .dropdown-inverse .dropdown-header {
   color:forestgreen;

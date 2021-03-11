@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthentificationService} from '../../services/authentification.service';
 import {ServiceModel} from '../../Entities/serviceModel';
+import { FlashMessagesService } from 'angular2-flash-messages';
 
 @Component({
   selector: 'app-gestion-service',
@@ -25,8 +26,9 @@ export class GestionServiceComponent implements OnInit {
   servRESPO;
   modeAff;
   modelservice:ServiceModel=new ServiceModel();
+  modeSelect=0;
 
-  constructor(authentificationService:AuthentificationService) {
+  constructor(authentificationService:AuthentificationService,public flashmessage:FlashMessagesService) {
     this.auth=authentificationService;
 
   }
@@ -39,8 +41,14 @@ export class GestionServiceComponent implements OnInit {
   }
   AffecterIntervenant(affecterInterVenant){
   this.auth.AffecterInter(affecterInterVenant).subscribe(resp=>{
+    const rd=resp;
+    this.flashmessage.show('Affection des intervenants  avec success',{cssClass:'alert-success',timeout:4000});
+  
+    this.modeaff=1;
+    this.intervenantsNames();
+    /*
   this.modeaff=1;
-  this.Message="affectation avec success";
+  this.Message="affectation avec success";*/
   })
 
 
@@ -100,7 +108,11 @@ export class GestionServiceComponent implements OnInit {
   resp=>{
   this.modeAdd=1;
   this.serviceAdd=resp;
-  this.Message="Ajouter Avec Succes du Service"
+  this.Message="Ajouter Avec Succes du Service";
+  this.servicesNamesSansRespo();
+  this.ServicesNames();
+  this.modeSelect=1;
+  this.modeaff=1;
 
   }
 
@@ -121,8 +133,14 @@ export class GestionServiceComponent implements OnInit {
     this.auth.AffecterResponsable(rs).subscribe(
       resp=>{
         this.servRESPO=resp;
-        this.modeAff=1;
-        this.Message="affectation du respo avec success!"
+        this.flashmessage.show('Affection du respo avec success',{cssClass:'alert-success',timeout:4000});
+     //   this.modeAff=1;
+        this.modeSelect=1;
+        this.RespoSansService();
+        this.servicesNamesSansRespo();
+       
+        /*
+        this.Message="affectation du respo avec success!";*/
 
 
       }

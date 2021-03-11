@@ -1,0 +1,49 @@
+
+    <div class="container mt-2"  *ngIf="consulter==1">
+        <div class="row ">
+          <div class="col-md-10 offset-md-1 ">
+              
+          <div class="card " >
+              <div class="card-header">
+                info Mission
+              </div>
+              <div class="card-body">
+    
+                <div class="container "  >
+                  <table class="table table-bordered " >
+                    <tr><td>Utilisateur emetteur:</td><td>{{demande.utilisateurs.nom}}</td></tr>
+                    <tr><td>Agence:</td><td>{{demande.utilisateurs.agence.nomAgence}}</td></tr>
+                    <tr><td>Commune Agence:</td><td>{{demande.utilisateurs.agence.adresse.commune}}</td></tr>
+                    <tr><td>La rue:</td><td>{{demande.utilisateurs.agence.adresse.rue}}</td></tr>
+                    <tr ><td>Panne:</td><td>{{demande.panne.categorie.nom}}</td></tr>
+                    <tr ><td>Etat panne :</td><td>{{demande.panne.etatPanne}}</td></tr>
+    
+                    <tr ><td>description:</td><td>{{demande.panne.description}}</td></tr>
+                    <tr><td>image:</td><td><img [src]="photos"  class="img-thumbnail" /></td></tr>
+                  </table>
+                
+    
+    
+               
+    
+                  <!--          <div class=container>
+                               <div class="dropdown">
+                                 <button class="btn btn-success" data-toggle="dropdown" >Accepter</button>
+                                 <ul class="dropdown-menu" >
+                                   <li  class="dropmenu-item"><a>Intervenir vous meme</a></li>
+                                   <li class="dropmenu-item"><a>Affecter un  intervenant</a></li>
+                                 </ul>
+    
+                                 <button class="btn badge-danger" (click)="DemandeRejeter(demande.id_Demande)"  >refuser</button>
+                               </div>
+               -->
+
+    
+                </div>
+    
+              </div>
+            </div>
+          </div>
+    
+        </div>
+      

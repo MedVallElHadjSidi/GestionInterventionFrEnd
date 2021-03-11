@@ -1,0 +1,69 @@
+<div class="container-fluid" >
+    <div class="container md ">
+      <div class="row">
+        <div class="col-md-12 ">
+          <div class="card " >
+            <div class="card-header">
+              Demande Rejeter
+              <div class="widget-icons pull-right">
+                <!--  <a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a>
+                  <a href="#" class="wclose"><i class="fa fa-times"></i></a>-->
+                <a (click)="fermertabuserRej()" class="wclose"><i class="fa fa-times"></i></a>
+  
+              </div>
+            </div>
+            <div class="card-body">
+  
+              <div class="container "  >
+                <table class="table table-bordered " >
+                  <tr> <th><i class="fa fa-desktop"></i> Demande</th>
+                    <th><i class="icon_calendar"></i> DateDemande</th>
+                    <th><i class="icon_mobile"></i> panne</th>
+                    <th><i class="icon_cogs"></i> typepanne</th>
+                    <th><i class="icon_piechart"></i> Etatpanne</th>
+  
+                    <th>EtatDemande</th>
+                    <th>  <i class="icon_genius"></i>Service</th>
+  
+  
+                    <th><i class="icon_genius"></i> Espace</th></tr>
+                  <tr *ngFor="let dmr of demandeRejeterUser">
+                    <td>{{dmr.id_Demande}}</td>
+                    <td>{{dmr.date_Demande}}</td>
+                    <td>{{dmr.panne.categorie.nom}}</td>
+                    <td *ngIf="dmr.panne.categorie.parent!=undefined">{{dmr.panne.categorie.parent.nom}}</td>
+                    <td *ngIf="dmr.panne.categorie.parent==undefined">{{dmr.panne.categorie.nom}}</td>
+                    <td>{{dmr.panne.etatPanne}}</td>
+                    <td>{{dmr.etat_Demande}}</td>
+                    <td>{{dmr.service.nom}}</td>
+                    <td>
+                      <div class="dropdown">
+                        <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" (click)="EspaceVide()">
+                          <i class="icon-task-l" ></i> Espaces</a>
+  
+                      <!--  <div class="dropdown-menu" aria-labelledby="navbarDropdown" (click)="EspaceVide()" >
+                         <a class="dropdown-item" >Consulter Espace </a>
+                        </div>-->
+                      </div>
+  
+                    </td>
+                  </tr>
+  
+  
+  
+                </table>
+                <ul class="nav nav-pills dc">
+                  <li *ngFor='let p of totalPageDrj ;let i=index' class="nav-item" >
+                    <a (click)="setpageDrj(i,$event)" class="nav-link"
+                       [ngClass]="{'active':i==pageDrj}">
+                      {{i+1}}
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

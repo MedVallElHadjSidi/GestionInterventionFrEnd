@@ -1,0 +1,36 @@
+<div class="container-fluid" >
+    <div class="container md ">
+      <div class="row">
+        <div class="col-md-12 ">
+          <div class="card " >
+            <div class="card-header">
+            Consulter Services
+            </div>
+            <div class="card-body" >
+              <div class="container "  >
+                <table class="table table-bordered " >
+                  <tr> <th><i class="fa fa-desktop"></i> CodeService</th>
+                    <th><i class="icon_calendar"></i> NomService</th>
+                    <th></th>
+                  <tr *ngFor="let dmu of listServices">
+                    <td>{{dmu.codeService}}</td>
+                    <td>{{dmu.nom}}</td>
+                    <td><button type="button" class="btn btn-outline-success " (click)="modifierService(dmu.codeService)"><i class="fa fa-pencil-square-o" aria-hidden="true" ></i>Modifier</button></td>
+                 
+                  </tr>
+                </table>
+                <ul class="nav nav-pills dc">
+                  <li *ngFor='let p of tableauPages ;let i=index' class="nav-item" >
+                    <a (click)="setpageService(i,$event)" class="nav-link"
+                       [ngClass]="{'active':i==page}">
+                      {{i+1}}
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

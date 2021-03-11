@@ -6,6 +6,7 @@ import {ModelAgence} from '../../Entities/ModelAgence';
 
 import {Adresse} from '../../Entities/Adresse';
 import {NgForm} from '@angular/forms';
+import { FlashMessagesService } from 'angular2-flash-messages';
 
 @Component({
   selector: 'app-agence',
@@ -36,7 +37,7 @@ moderespAU;
   listAdresse:any;
   modecode;
   modelag:ModelAgence =new ModelAgence();
-  constructor(authservice:AuthentificationService ,app:AppComponent) {
+  constructor(authservice:AuthentificationService ,app:AppComponent,public flashmessage:FlashMessagesService) {
     this.appcomp=app;
     this.date=app.date;
     this.auth=authservice;
@@ -55,7 +56,9 @@ moderespAU;
       this.agence=resp;
 
       this.mode=1;
-      this.Message="L'ajout avec success"
+      this.Message="L'ajout avec success";
+      this.AgencesNames();
+      this.moderespAU=1;
     },error => {
 
       this.mode=0;
@@ -101,13 +104,31 @@ moderespAU;
   this.auth.affectAgUser(affectUsers).subscribe(
   resp=>{
   this.aguser=resp;
+
   this.moderespAU=1;
-  this.Message="operation effectuer avec succes";
+ 
+  /*
+  this.Message="operation effectuer avec succes";*/
 
   },error=>{
   this.moderespAU=0;
   this.Message=error.error.message;})
   }
+  AffectationListUsers(affectUsers){
+    this.auth.affectAgUser(affectUsers).subscribe(
+    resp=>{
+    this.aguser=resp;
+   
+    this.flashmessage.show('Affection des utilisateurs avec success',{cssClass:'alert-success',timeout:4000});
+  
+    this.UserNames();
+    this.moderespAU=1;
+    
+  
+    },error=>{
+    this.moderespAU=0;
+    this.Message=error.error.message;})
+    }
   AgencesNames(){
   this.auth.AgencesNames().subscribe(resp=>{
   this.listAgences=resp;

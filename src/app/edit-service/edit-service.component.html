@@ -1,0 +1,27 @@
+<div class="card foot mv" *ngIf="service">
+    <div class="card-header">
+      Insertions des Services
+    </div>
+    <div class="card-body">
+      <div class="container">
+
+        <form #fb="ngForm" (ngSubmit)="EditerService(fb.value)">
+       
+          <div class="form-group row">
+            <label  class="col-sm-3 col-form-label">NameService</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" placeholder="NomService" ngModel="" name="nom"  [(ngModel)]="service.nom"  required>
+            </div>
+          </div>
+
+          <div class="form-group row">
+
+            <div class="col-sm-10">
+              <button type="submit" class="btn btn-success " [disabled]="!fb.valid">Modifier</button>
+            </div>
+          </div>
+        </form>
+      </div>
+      </div>
+      </div>
+      

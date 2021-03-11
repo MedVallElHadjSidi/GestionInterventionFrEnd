@@ -80,19 +80,19 @@
     </div>
 
     <div class="col-md-4 " *ngIf="mode==1">
-
+      
       <div class="card foot">
         <div class="card-header">
           Information d'utilisateur Ajouter
         </div>
         <div class="card-body">
-          <div class="col-sm-12">
+          <div class="col-sm-8">
             <div class="alert alert-success" role="alert">
               {{Message}}
             </div>
           </div>
 
-          <div class="container-fluid">
+          <div class="container">
             <table class="table table-bordered " >
               <tr ><td>Code:</td><td>{{Nuser.code}}</td></tr>
               <tr ><td>Nom:</td><td>{{Nuser.nom}}</td></tr>
@@ -109,9 +109,12 @@
       </div>
 
     </div>
+    </div>
+    
 
   </div>
-</div>
+
+<!--
 <div class="footer">
   <p class="myp">©  Tous droits réservés BMCI {{date| date :'yyyy'}}</p>
-</div>
+</div>-->

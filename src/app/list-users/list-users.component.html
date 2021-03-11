@@ -1,0 +1,52 @@
+<div class="container-fluid" >
+    <div class="container md ">
+      <div class="row">
+        <div class="col-md-12 ">
+          <div class="card " >
+            <div class="card-header">
+           Liste des utilisateurs
+            </div>
+            <div class="card-body" *ngIf="listUsers" >
+              <div class="container "  >
+                <table class="table table-bordered " >
+                  <tr> <th><i class="fa fa-desktop"></i> CodeUser</th>
+                    <th> Nom Complet</th>
+                    <th>Email</th>
+                    <th>Username</th>
+                    <th></th>
+                  <tr *ngFor="let dmu of listUsers">
+                    <td>{{dmu.code}}</td>
+                    <td>{{dmu.nom}}</td>
+                    <td>{{dmu.email}}</td>
+                    <td>{{dmu.username}}</td>
+                    <td><button type="button" class="btn btn-outline-success " (click)="modifierUser(dmu.code)"><i class="fa fa-pencil-square-o" aria-hidden="true" ></i>Modifier</button></td>
+                 
+                  </tr>
+                </table>
+                <nav  class="text-centre mt-2 ml-2 ">
+                <ul class="pagination" >
+                  <div  *ngFor='let p of tableauPages ;let i=index'>
+                  <li   *ngIf="i==page;else notActive" class="page-item mr-1 active"  >
+                    <a (click)="setpageUser(i,$event)" class="page-link"
+                       >
+                      {{i+1}}
+                    </a>
+                  </li>
+                  <ng-template #notActive>
+                    <li    class="page-item mr-1"  >
+                    <a (click)="setpageUser(i,$event)" class="page-link" 
+                    >
+                   {{i+1}}
+                 </a>
+                 </li>
+                  </ng-template>
+                </div>
+                </ul>
+              </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

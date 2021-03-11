@@ -18,7 +18,7 @@ export  class AuthentificationService {
   public isrespo=false;
 
   private host: string = "http://localhost:8080";
-  private myroles: Array<any>;
+  public myroles: Array<any>;
 
   constructor(private  http: HttpClient) {
   }
@@ -28,7 +28,6 @@ export  class AuthentificationService {
   }
   ChercherParentCategorie(){
     return this.http.get(this.host+"/ChercherAllCategorieParent",{headers: new HttpHeaders({'authorization': this.jwtToken})});
-
 
   }
 
@@ -70,7 +69,7 @@ ChercherSousCategorieNames(nom:string){
 
   }
   affectAgUser(modelAffectAgUser:ModelAffectAgUser){
-   return this.http.post(this.host+"/affectAgUser",modelAffectAgUser,{headers:new HttpHeaders({'authorization':this.jwtToken})})
+   return this.http.post(this.host+"/affectAgListUser",modelAffectAgUser,{headers:new HttpHeaders({'authorization':this.jwtToken})})
   }
   AddCategorie(categorie:ModelCategorie){
   return this.http.post(this.host+"/ajouterCategorie",categorie,{headers:new HttpHeaders({'authorization':this.jwtToken})})
@@ -139,9 +138,12 @@ ChercherSousCategorieNames(nom:string){
 
   AffectationIntervenant(){
     return this.http.get(this.host+"/AffectationIntervenant",{headers: new HttpHeaders({'authorization': this.jwtToken})});
-
-
   }
+  AffectationListIntervenantService(){
+    return this.http.get(this.host+"/AffectationListIntervenantSrv",{headers: new HttpHeaders({'authorization': this.jwtToken})});
+  }
+
+
   AffecterResponsable(service){
     return this.http.post(this.host+"/AffectRespoService",service,{headers: new HttpHeaders({'authorization': this.jwtToken})});
 
@@ -206,56 +208,55 @@ ChercherSousCategorieNames(nom:string){
     return  false;
 
   }
+  isDirecteurGeneral() {
+    if (this.myroles != undefined) {
+      for (let role of this.myroles) {
+        if (role.authority == 'DG') return true;
+      }
+    }
+    return false;
+  }
+
   isSimpleUser() {
     if (this.myroles != undefined) {
       for (let role of this.myroles) {
         if (role.authority == 'S-USER') return true;
-
       }
     }
-
-
     return false;
-
   }
   Notification(){
     return this.http.get(this.host+"/Notification",{headers: new HttpHeaders({'authorization': this.jwtToken})});
-
-
   }
 
 
   NouveauMessagesDemande(){
     console.log("nouveaux avec service")
     return this.http.get(this.host+"/NouveauxDemandes",{headers: new HttpHeaders({'authorization': this.jwtToken})});
-
   }
 
   DemandesEncours(){
     return this.http.get(this.host+"/DemandesEncours",{headers: new HttpHeaders({'authorization': this.jwtToken})});
-
-
   }
   EspaceDemande(id){
   return this.http.get(this.host+"/EspaceDemande/"+id,{headers: new HttpHeaders({'authorization': this.jwtToken})});
-
   }
-  DemandeEncousUser(username){
-    return this.http.get(this.host+"/DemandeEncoursUser/"+username,{headers: new HttpHeaders({'authorization': this.jwtToken})});
-
-
+  DemandeEncousUser(page,username){
+    return this.http.get(this.host+"/DemandeEncoursUser/"+page+"/"+username,{headers: new HttpHeaders({'authorization': this.jwtToken})});
   }
   fermersansResolu(id){
   return this.http.get(this.host+"/fermersansResolu/"+id,{headers: new HttpHeaders({'authorization': this.jwtToken})});
-
   }
   EspaceFermerInterventionResolu(id){
   return this.http.get(this.host+"/EspaceFermerInterventionResolu/"+id,{headers: new HttpHeaders({'authorization': this.jwtToken})});
-
   }
 
   ChercherByidDemande(id){
     return this.http.get(this.host+"/ChercherByidDemande/"+id,{headers: new HttpHeaders({'authorization': this.jwtToken})});
+  }
+  CherCherByIdNouveauxMissionEnCours(id){
+    return this.http.get(this.host+"/ChercherByidDemandeInterVensionEncours/"+id,{headers: new HttpHeaders({'authorization': this.jwtToken})});
+  
 
 
   }
@@ -277,26 +278,145 @@ ChercherSousCategorieNames(nom:string){
   DemandeRejeter(d){
     return this.http.get(this.host+"/rejeter/"+d,{headers:new HttpHeaders({'authorization':this.jwtToken})});
   }
+  DemandeRejeterLue(id){
+    return this.http.get(this.host+"/rejeterNotifierModifier/"+id,{headers:new HttpHeaders({'authorization':this.jwtToken})});
+  
+
+  }
+
+
   EspcaeIDIntervention(idDemande,username)
   {
     console.log(idDemande);
     console.log(username);
    return this.http.get(this.host+"/espace/"+idDemande+"/"+username,{headers:new HttpHeaders({'authorization':this.jwtToken})});
- }
+  }
    EnvoyerDemandeEspace(message){
    console.log(message);
       return this.http.post<any>(this.host+"/app/interventionsimple",message,{headers:new HttpHeaders({'authorization':this.jwtToken})});}
 
-  DemandeResolus(){
+  DemandeResolus(page){
   let username=this.username;
-    return this.http.get(this.host+"/DemandeUserResolus/"+username,{headers: new HttpHeaders({'authorization': this.jwtToken})});
+    return this.http.get(this.host+"/DemandeUserResolus/"+page+"/"+username,{headers: new HttpHeaders({'authorization': this.jwtToken})});
+  }
+  DemandeUserNonResolus(page){
+    let username=this.username;
+    return this.http.get(this.host+"/DemandeUserNonResolus/"+page+"/"+username,{headers: new HttpHeaders({'authorization': this.jwtToken})});
+  }
+  MissionIntervenantResolu(username){
+  
+    return this.http.get(this.host+"/missionInterventionResolu/"+username,{headers: new HttpHeaders({'authorization': this.jwtToken})});
+ 
+  }
+  MissionIntervenantNonResolu(username){
+  
+    return this.http.get(this.host+"/missionInterventionNonResolu/"+username,{headers: new HttpHeaders({'authorization': this.jwtToken})});
+ 
+  }
+  MissionIntervenantHistorique(username){
+  
+    return this.http.get(this.host+"/missionInterventionHistorique/"+username,{headers: new HttpHeaders({'authorization': this.jwtToken})});
+ 
+  }
+
+
+  DemandeUserEnAttente(page){
+    let username=this.username;
+    return this.http.get(this.host+"/DemandeUserEnAttente/"+page+"/"+username,{headers: new HttpHeaders({'authorization': this.jwtToken})});
+  }
+  DemandeRejeterUser(page){
+  let username=this.username;
+    return this.http.get(this.host+"/DemandeRejeterUser/"+page+"/"+username,{headers: new HttpHeaders({'authorization': this.jwtToken})});
+  }
+
+  ConsulterHistoriqueUser(page){
+    let username=this.username;
+      return this.http.get(this.host+"/ConsulterHistoriqueUser/"+page+"/"+username,{headers: new HttpHeaders({'authorization': this.jwtToken})});
+    }
+    ConsulterHistoriquesServicesRespo(page){
+      return this.http.get(this.host+"/ConsulterHistoriqueServicesInfo/"+page,{headers: new HttpHeaders({'authorization': this.jwtToken})});
+   
+    }
+
+
+
+  InterventionViaIintervenant(demandeIntervenant){
+    console.log(demandeIntervenant);
+    return this.http.post<any>(this.host+"/interventionComplex",demandeIntervenant,{headers:new HttpHeaders({'authorization':this.jwtToken})});
+  }
+
+  DemandeAsoocierIntervenant(username){
+    console.log(username);
+    return this.http.get(this.host+"/DemandeAsoocierIntervenant/"+username,{headers:new HttpHeaders({'authorization':this.jwtToken})})
+  }
+   DemandeAsoocierIntervenantEncours(username){
+      return this.http.get(this.host+"/DemandeAsoocierIntervenantEncours/"+username,{headers:new HttpHeaders({'authorization':this.jwtToken})})
+
+
+    }
+    InterventionNonResolu(page){
+      return this.http.get(this.host+"/interventionsNonResolus/"+page,{headers:new HttpHeaders({'authorization':this.jwtToken})});
+    }
+
+
+
+  IntervenantLibreServiceInfo(){
+    return this.http.get(this.host+"/intervenantsNamesLibres",{headers:new HttpHeaders({'authorization':this.jwtToken})})
+  }
+  ChangerEtatIntervenant(username){
+    return this.http.get(this.host+"/ChangerEtatIntervenant/"+username,{headers:new HttpHeaders({'authorization':this.jwtToken})})
 
   }
-  DemandeRejeterUser(){
-  let username=this.username;
-    return this.http.get(this.host+"/DemandeRejeterUser/"+username,{headers: new HttpHeaders({'authorization': this.jwtToken})});
 
+  NombreInterventionEncours(){
+   return this.http.get(this.host+"/NombreInterventionEncours",{headers:new HttpHeaders({'authorization':this.jwtToken})})
+  }
+
+  NombreInterventionrResolu(){
+   return this.http.get(this.host+"/NombreInterventionResolu",{headers:new HttpHeaders({'authorization':this.jwtToken})})
+  }
+  NombreInterventionNonResolu(){
+    return this.http.get(this.host+"/NombreInterventionNonResolu",{headers:new HttpHeaders({'authorization':this.jwtToken})})
 
   }
+
+  ServiceResolu(page){
+  return this.http.get(this.host+"/ServiceResolu/"+page,{headers:new HttpHeaders({'authorization':this.jwtToken})})
+  }
+   ChercherComplet(modelRecherche){
+      console.log(modelRecherche)
+      return this.http.post(this.host+"/chercherDemandeComplet",modelRecherche,{headers:new HttpHeaders({'authorization':this.jwtToken})})
+    }
+    rejeterNotifier(page,username){
+      return this.http.get(this.host+"/rejeterNotifier/"+page+"/"+username,{headers: new HttpHeaders({'authorization': this.jwtToken})});
+
+
+    }
+
+
+    DemandeByAgence(url){
+     return this.http.get(this.host+url,{headers: new HttpHeaders({'authorization': this.jwtToken})});
+     }
+     DemandeByMateriel(url){
+      return this.http.get(this.host+url,{headers: new HttpHeaders({'authorization': this.jwtToken})});
+    
+     }
+     StatistiquesPanne(nom){
+      return this.http.get(this.host+"/"+"demandeInterventions/search/findByPanneCategorieNom?nom="+nom,{headers: new HttpHeaders({'authorization': this.jwtToken})});
+    
+
+     }
+
+     ChercherByidDemandePanneMateriel(idPanne){
+      return this.http.get(this.host+"/materielService/chercherMaterielpANNE/"+idPanne,{headers: new HttpHeaders({'authorization': this.jwtToken})});
+    }
+
+    EiditerDemande(modelEditDemande){
+   
+    
+         return this.http.post<any>(this.host+"/EditerDemandeIntervention",modelEditDemande,{headers:new HttpHeaders({'authorization':this.jwtToken})});
+          }
+
+
 
 }

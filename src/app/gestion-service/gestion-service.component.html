@@ -9,16 +9,19 @@
         </div>
         <div class="card-body">
           <div class="container">
+            <flash-messages></flash-messages>
+            <!--
             <div class="col-sm-12" *ngIf="modeaff==1">
               <div class="alert alert-success" role="alert">
                 {{Message}}
               </div>
-            </div>
+            </div>-->
             <form #fa="ngForm" (ngSubmit)="AffecterIntervenant(fa.value)">
             <div class="form-group row" *ngIf="modeNames==1 " >
               <label  class="col-sm-3 col-form-label">Service</label>
               <div class="col-sm-9">
                 <select class="form-control" ngModel=""  name="serviceName" required >
+                  <option *ngIf="modeaff==1" hidden selected> </option>
                   <option *ngFor="let s of servicesNames">{{s}}</option>
                 </select>
               </div>
@@ -27,8 +30,13 @@
             <div class="form-group row" *ngIf="modeInter==1 " >
               <label  class="col-sm-3 col-form-label">Intervenant</label>
               <div class="col-sm-9">
-                <select class="form-control" ngModel=""  name="intervenantName" required >
+               <!--<select class="form-control" ngModel=""  name="intervenantName" required >
                   <option *ngFor="let i of listIntervenant"    >{{i}}</option>
+                </select>-->
+
+
+                <select class="form-control" ngModel=""  name="intervenantName" required  multiple="multiple" >
+                  <option *ngFor="let i of listIntervenant"  [ngValue]="i" >{{i}}</option>
                 </select>
               </div>
             </div>
@@ -55,17 +63,19 @@
         </div>
         <div class="card-body">
           <div class="container">
-            <div class="col-sm-12" *ngIf="modeAff==1">
+            <!--<div class="col-sm-12" *ngIf="modeAff==1">
               <div class="alert alert-success" role="alert">
                 {{Message}}
               </div>
-            </div>
+            </div>-->
+            <flash-messages></flash-messages>
 
             <form #fr="ngForm" (ngSubmit)="AffecterResponsable(fr.value)">
             <div class="form-group row" *ngIf="moderespo==1" >
               <label  class="col-sm-5 col-form-label">Service</label>
               <div class="col-sm-7">
                 <select class="form-control" ngModel=""  name="serviceName" required >
+                  <option *ngIf="modeSelect==1" selected hidden></option>
                   <option *ngFor="let sr of servicesNamesSansRespos">{{sr}}</option>
                 </select>
               </div>
@@ -74,8 +84,8 @@
             <div class="form-group row" *ngIf="modeRespoSansService==1" >
               <label  class="col-sm-5 col-form-label">Respo</label>
               <div class="col-sm-7">
-                <select class="form-control" ngModel=""  name="intervenantName" required >
-
+                <select class="form-control" ngModel=""  name="respoName" required >
+                  <option *ngIf="modeSelect==1" selected hidden></option>
                   <option *ngFor="let rs of respoSansServices">{{rs}}</option>
                 </select>
               </div>
@@ -111,7 +121,7 @@
         <div class="card-body">
           <div class="container">
 
-            <form #fs="ngForm" (ngSubmit)="AjouterService(fs.value)">
+            <form #fb="ngForm" (ngSubmit)="AjouterService(fb.value)">
               <div class="form-group row">
                 <label  class="col-sm-3 col-form-label">CodeService</label>
                 <div class="col-sm-9">
@@ -128,7 +138,7 @@
               <div class="form-group row">
 
                 <div class="col-sm-10">
-                  <button type="submit" class="btn btn-success " [disabled]="!fs.valid">Ajouter</button>
+                  <button type="submit" class="btn btn-success " [disabled]="!fb.valid">Ajouter</button>
                 </div>
               </div>
             </form>

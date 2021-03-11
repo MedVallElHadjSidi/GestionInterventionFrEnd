@@ -1,0 +1,40 @@
+<div class="container-fluid" >
+    <div class="container md ">
+      <div class="row">
+        <div class="col-md-12 ">
+          <div class="card " >
+            <div class="card-header">
+            Consulter des Materiels
+            </div>
+            <div class="card-body" >
+              <div class="container "  >
+                <table class="table table-bordered " >
+                  <tr> <th><i class="fa fa-desktop"></i> codeMateriel</th>
+                    <th><i class="icon_calendar"></i> NomMateriel</th>
+                    <th>Model</th>
+                    <th>Processeur</th>
+                    <th></th>
+                  <tr *ngFor="let dmu of listMateriels">
+                    <td>{{dmu.idMateriel}}</td>
+                    <td>{{dmu.nom}}</td>
+                    <td>{{dmu.model}}</td>
+                    <td>{{dmu.processeur}}</td>
+                    <td><button type="button" class="btn btn-outline-success " (click)="modifierMateriel(dmu.id_Role)"><i class="fa fa-pencil-square-o" aria-hidden="true" ></i>Modifier</button></td>
+                 
+                  </tr>
+                </table>
+                <ul class="nav nav-pills dc">
+                  <li *ngFor='let p of tableauPages ;let i=index' class="nav-item" >
+                    <a (click)="setpageMateriel(i,$event)" class="nav-link"
+                       [ngClass]="{'active':i==page}">
+                      {{i+1}}
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

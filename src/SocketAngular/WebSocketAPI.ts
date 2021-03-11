@@ -5,10 +5,26 @@ import * as SockJS from 'sockjs-client';
 import {MesMessage} from '../Entities/MesMessage';
 
 import {AuthentificationService} from '../services/authentification.service';
+import {ToastrService} from 'ngx-toastr';
+
 
 
 
 export class WebSocketAPI {
+
+
+  page:number=0;
+  editDmd=0;
+  demandesRejetes=[];
+  pagetotaleDNotifier=0;
+  pagednotifier=0;
+  nbredemandeRejeter=0;
+  totalPageDemandeNotifier=[];
+  totalPage=[];
+  missioninterv;
+  missionEncoursIntervenant;
+  missionEncoursInter=[];
+  demandeIntervenant;
   webSocketEndPoint: string = 'http://localhost:8080/ws';
   stompClient: any;
   newmessage;
@@ -25,6 +41,9 @@ export class WebSocketAPI {
   username:string;
   url:string="/topic/replay"+"/";
   url2:string="/topic/espace"+"/";
+  url3:string="/topic/intervenant"+"/";
+  url4:string="/topic/rejeterDemande"+"/";
+  demandeRejeter
   notification;
   contenuDemande;
   isconnecter=false;
@@ -36,6 +55,7 @@ export class WebSocketAPI {
   espacesusers;
   etatespace="ouvert";
   espaceconsulter;
+  nbredemessageintervenant=0;
 
 
 
@@ -56,6 +76,8 @@ export class WebSocketAPI {
     console.log(this.username);
     _this.url=_this.url+this.auth.username;
     _this.url2=_this.url2+this.auth.username;
+    _this.url3=_this.url3+this.username;
+    _this.url4=_this.url4+this.username;
 
     _this.stompClient.connect({}, function (frame) {
        _this.stompClient.subscribe(_this.url, (message)=> {
@@ -76,11 +98,13 @@ export class WebSocketAPI {
 
 
               }
+              else{
+              console.log("ce message introuvable")}
 
             }
 
 
-            console.log("ce message vient du broker")
+      console.log("ce message vient du broker");
 
           });
       _this.stompClient.subscribe(_this.url2, (message)=> {
@@ -97,6 +121,48 @@ export class WebSocketAPI {
         console.log("ce message vient du broker2 ")
       });
 
+
+      _this.stompClient.subscribe(_this.url3, (message)=> {
+      _this.demandeIntervenant= JSON.parse(message.body);
+        //  console.log(message);
+        // console.log(message.body);
+        // console.log(JSON.parse(message.body));
+        if(_this.demandeIntervenant!=undefined) {
+          console.log("message recue par url2")
+          console.log(_this.demandeIntervenant)
+          _this.missionEncoursInter.push(_this.demandeIntervenant);
+          _this.nbredemessageintervenant=_this.nbredemessageintervenant+1;
+          console.log(_this.missionEncoursInter);
+          _this.demandeIntervenant=undefined;
+          (message)=undefined;
+
+        }
+        console.log("ce message vient du broker3 ")
+      });
+
+
+
+
+
+
+      _this.stompClient.subscribe(_this.url4, (demandeIntervention)=> {
+      _this.demandeRejeter= JSON.parse(demandeIntervention.body);
+        //  console.log(message);
+        // console.log(message.body);
+        // console.log(JSON.parse(message.body));
+        if(_this.demandeRejeter!=undefined) {
+          console.log("message recue par url2")
+          console.log(_this.demandeRejeter)
+          _this.demandesRejetes.push(_this.demandeRejeter);
+          _this.nbredemandeRejeter=_this.nbredemandeRejeter+1;
+          console.log(_this.nbredemandeRejeter);
+          _this.demandeRejeter=undefined;
+          (demandeIntervention)=undefined;
+
+        }
+        console.log("ce message vient du broker4 ")
+      });
+
       //_this.stompClient.reconnect_delay = 2000;
     }, this.errorCallBack);
   };
@@ -109,13 +175,41 @@ export class WebSocketAPI {
   }
   _send(message) {
     console.log("calling logout api via web socket");
+
     this.stompClient.send("/app/hello",{},JSON.stringify(message));
+
     //this.handleResult(message);
+  }
+  envoyerDemandewb(message){
+  this.auth.ResetDemande(message).subscribe(
+  resp=>{
+  this.nouveauxDemandes=resp;
+  this.nv=this.nouveauxDemandes;
+   this.nbredemessage = this.nv.length;
+
+  })
+
   }
   _sendVersEspace(message){
   console.log(message);
     this.stompClient.send("/app/interventionsimple",{},JSON.stringify(message));
    // this.HandleResult(message);
+
+  }
+  _sendVersRejeter(demandeIntervention){
+
+    this.stompClient.send("/app/DemandeRejeter",{},JSON.stringify(demandeIntervention));
+     // this.HandleResult(message);
+
+  }
+
+  _sendIntervenant(notificationIntervenant){
+
+  console.log(notificationIntervenant)
+    this.stompClient.send("/app/interventionComplexe",{},JSON.stringify(notificationIntervenant));
+
+
+
 
   }
 
@@ -132,6 +226,7 @@ export class WebSocketAPI {
       this.nbredemessage = this.nv.length;
       console.log(this.nbredemessage);
       console.log(this.nouveauxDemandes)
+
 
     })
   }
@@ -170,6 +265,24 @@ export class WebSocketAPI {
     }
   }
 
+
+
+
+  MissionEncours(username){
+    this.auth.DemandeAsoocierIntervenant(username).subscribe(
+      resp=>{
+        this.missionEncoursIntervenant=resp;
+        console.log(this.missionEncoursIntervenant);
+        this.missionEncoursInter=this.missionEncoursIntervenant;
+        console.log(this.missionEncoursInter)
+        this.nbredemessageintervenant=this.missionEncoursInter.length;
+
+      }
+    )
+  }
+
+
+
   DemandesEncours(){
 
     this.auth.DemandesEncours().subscribe(resp=>{
@@ -191,14 +304,34 @@ export class WebSocketAPI {
 
   }
   EspaceUserEncours(){
-    this.auth.DemandeEncousUser(this.auth.username).subscribe(
+    this.auth.DemandeEncousUser(this.page,this.auth.username).subscribe(
       resp => {
-        this.espacesusers=resp;
+        this.espacesusers=resp['content'];
+        this.totalPage=new Array(resp['totalPages']);
+
+        console.log(this.espacesusers)
+        console.log(this.totalPage)
        // this.espaceEncours=this.espacesusers.commentaireEspace();
 
 
       }
     )
+  }
+
+  rejeterNotifier(){
+      this.auth.rejeterNotifier(this.pagednotifier,this.auth.username).subscribe(
+        resp => {
+          this.demandesRejetes=resp['content'];
+          this.nbredemandeRejeter=this.demandesRejetes.length;
+          this.totalPageDemandeNotifier=new Array(resp['totalPages']);
+          this.pagetotaleDNotifier=this.totalPageDemandeNotifier.length
+          console.log(this.totalPageDemandeNotifier.length)
+
+
+        }
+      )
+
+
   }
 
 }

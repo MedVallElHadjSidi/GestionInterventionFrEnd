@@ -1,0 +1,47 @@
+<p></p>
+<div class="container-fluid" >
+    <div class="container md ">
+      <div class="row">
+        <div class="col-md-12 ">
+          <div class="card " >
+            <div class="card-header">
+            Liste Agence
+            </div>
+            <div class="card-body" >
+              <div class="container "  >
+                <table class="table table-bordered " >
+                  <tr> <th><i class="fa fa-desktop"></i> IdAgence</th>
+                    <th><i class="icon_calendar"></i> NomAgence</th>
+                    <th>Wilaye</th>
+                    <th>Commune</th>
+                    
+                    <th>Ville</th>
+                    <th>Rue</th>
+                    <th></th>
+                  <tr *ngFor="let ag of listAgence">
+                    <td>{{ag.idAgence}}</td>
+                    <td>{{ag.nomAgence}}</td>
+                    <td>{{ag.adresse.wilaye}}</td>
+                    <td>{{ag.adresse.commune}}</td>
+                    
+                    <td>{{ag.adresse.ville}}</td>
+                    <td>{{ag.adresse.rue}}</td>
+                    <td><button type="button" class="btn btn-outline-success " (click)="ModifierAgence(ag.idAgence)"><i class="fa fa-pencil-square-o" aria-hidden="true" ></i>Modifier</button></td>
+                 
+                  </tr>
+                </table>
+                <ul class="nav nav-pills dc">
+                  <li *ngFor='let p of tableauPages ;let i=index' class="nav-item" >
+                    <a (click)="setpageAgence(i,$event)" class="nav-link"
+                       [ngClass]="{'active':i==page}">
+                      {{i+1}}
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

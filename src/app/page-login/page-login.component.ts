@@ -10,12 +10,15 @@ import {Router} from '@angular/router';
 export class PageLoginComponent implements OnInit {
   mode=0;
   date =new  Date();
+  jwt;
 
 
 
   constructor(private  authService:AuthentificationService, private  route:Router) { }
 
   ngOnInit(): void {
+
+
   }
 
 
@@ -25,12 +28,17 @@ export class PageLoginComponent implements OnInit {
       .subscribe(
         resp=>{
           let jwtToken=resp.headers.get('Authorization');
+
           this.authService.saveToken(jwtToken);
-          if(this.authService.isAdmin()) this.route.navigateByUrl('/admin')
-          else if(this.authService.isSimpleUser())return this.route.navigateByUrl('/user')
-          else if(this.authService.isRespoInfo())return  this.route.navigateByUrl("/respInfo")
+          this.jwt=this.authService.jwtToken;
+      //    console.log(this.jwt);
+          if(this.authService.isAdmin()) this.route.navigateByUrl('/admin/acceuil')
+          else if(this.authService.isSimpleUser())return  this.route.navigate(['user/nouveauDemande'])
+          else if(this.authService.isRespoInfo())return  this.route.navigate(["respInfo/tableauBordRespoInfo"]);
+          else if (this.authService.isIntervenant())return  this.route.navigateByUrl("/intervenant")
+          else if(this.authService.isDirecteurGeneral()) return this.route.navigateByUrl("/DG")
           else{
-            return  this.route.navigateByUrl('/intervenant')
+            return  this.route.navigateByUrl('/login')
           }
 
 
@@ -48,6 +56,8 @@ export class PageLoginComponent implements OnInit {
 
 
   }
+
+
 
 
 }

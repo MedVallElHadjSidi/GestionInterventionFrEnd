@@ -1,1 +1,150 @@
-<p>consulter-h-demande works!</p>
+<div class="container-fluid" >
+    <div class="container md ">
+    <div class="card">
+      <div class="card-header">
+  
+       Chercher des demandes
+        <div class="widget-icons pull-right">
+          <!--  <a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a>
+            <a href="#" class="wclose"><i class="fa fa-times"></i></a>-->
+          <a (click)="fermerChercherComplet()" class="wclose"><i class="fa fa-times"></i></a>
+  
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-sm-12 ">
+            <form #ch="ngForm" (ngSubmit)="DemandeRecherche(ch.value)">
+            <div class="form-group row">
+  
+              <label class="col-sm-2 col-form-label">Panne*</label>
+              <div class="col-sm-10">
+              <select class="custom-select  dropdown"  #mysection2 ngModel="" name="panne" [(ngModel)]="modelChercher.panne"  required  (change)="notreParentch(mysection2.value)"    [value]="modelch"   >
+                <optgroup *ngIf="modechercher!=1" >
+                  <option [hidden]="true"></option>
+                  <option  class="dropdown-item" *ngFor="let m of listPanneParent"  >{{m}}</option>
+                </optgroup>
+                <optgroup  *ngIf="modechange==1" >
+                  <p></p>
+                  <option [hidden]="true">{{modelch}}</option>
+  
+                  <option  *ngFor="let s of listSousCategories" >{{s}}</option>
+                </optgroup>
+              </select>
+              </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Etat du  Panne*</label>
+                <div class="col-sm-10">
+                  <select class="custom-select" ngModel="" name="etat" required="" [(ngModel)]="modelChercher.etat">
+                    <option selected>Urgent</option>
+                    <option value="un peu Urgent">un peu Urgent </option>
+  
+                  </select>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="example-date-input" class="col-2 col-form-label">Date</label>
+                <div class="col-sm-10">
+                  <input class="form-control"  type="date"   ngMdel="" id="example-date-input" name="datechercher" [(ngModel)]="modelChercher.datechercher">
+                </div>
+              </div>
+              <div class="form-group row pull-right">
+                
+                 <button type="submit" class="btn btn-info mr-3" [disabled]="!ch.valid"><span class="fa fa-search"></span>
+                   Chercher
+                 </button>
+               
+              </div>
+  
+  
+  
+  
+  
+            </form>
+  
+  
+  
+  
+          </div>
+  
+  
+        </div>
+  <div class="row" *ngIf="achercher==1">
+    <div class="col-sm-12">
+      <section class="panel">
+        <div class="card">
+        <div class="card-header">
+  
+          Resultat du Recherche
+         <!--<div class="widget-icons pull-right">
+           <a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a>
+              <a href="#" class="wclose"><i class="fa fa-times"></i></a>
+            <a (click)="fermerDemandeChercher()" class="wclose"><i class="fa fa-times"></i></a>
+  
+          </div>-->
+        </div>
+  
+  
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th>Demande</th>
+            <!--<th><i class="icon_pin_alt"></i> Materiel</th>-->
+            <th> Date</th>
+            <!--  <th> <i class="icon_profile"></i> nomcomplet</th>
+              <th><i class="icon_mail_alt"></i> Email </th>-->
+            <th>panne</th>
+            <th>typepanne</th>
+            <th>Etatpanne</th>
+            <th>EtatDemande</th>
+            <th>Service</th>
+            <th>Espace</th>
+          </tr>
+          </thead>
+  
+        <tbody>
+  
+  
+        <tr *ngFor="let dmu of listDemandeChercher">
+          <td>{{dmu.id_Demande}}</td>
+          <td>{{dmu.date_Demande}}</td>
+          <td>{{dmu.panne.categorie.nom}}</td>
+          <td *ngIf="dmu.panne.categorie.parent!=undefined">{{dmu.panne.categorie.parent.nom}}</td>
+          <td *ngIf="dmu.panne.categorie.parent==undefined">{{dmu.panne.categorie.nom}}</td>
+          <td>{{dmu.panne.etatPanne}}</td>
+          <td>{{dmu.etat_Demande}}</td>
+          <td>{{dmu.service.nom}}</td>
+          <td>
+            <div class="dropdown">
+              <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="icon-task-l" ></i> Espaces</a>
+  
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown" *ngFor="let es of  dmu.interventions; let i = index">
+                <a class="dropdown-item" (click)="consulterEspaceUser(es.espace)">Consulter Espace {{i+1}}</a>
+              </div>
+            </div>
+  
+          </td>
+        </tr>
+  
+        </tbody>
+  
+        </table>
+        <ul class="nav nav-pills dc">
+          <li *ngFor='let p of totalpagechc ;let i=index' class="nav-item" >
+            <a (click)="setpagechc(i,$event)" class="nav-link"
+               [ngClass]="{'active':i==modelChercher.page}">
+              {{i+1}}
+            </a>
+          </li>
+        </ul>
+        </div>
+  </section>
+    </div>
+  </div>
+      </div>
+    </div>
+  
+    </div>
+  </div>

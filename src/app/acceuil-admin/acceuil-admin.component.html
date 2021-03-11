@@ -1,0 +1,158 @@
+<p></p>
+<div class="container-fluid" >
+    <div class="container md ">
+      <div class="row">
+        <div class="col-md-7 ">
+          <div class="card " >
+            <div class="card-header">
+            Liste Agence
+            </div>
+            <div class="card-body" >
+              
+                <table class="table table-bordered " >
+                  <tr> 
+                    <th>NomAgence</th>
+                    <th>Wilaye</th>
+                    <th>Commune</th>
+                    
+                    <th>Ville</th>
+                    <th>Rue</th>
+                    <th></th>
+        
+                  <tr *ngFor="let ag of listAgence">
+
+                    <td>{{ag.nomAgence}}</td>
+                    <td>{{ag.adresse.wilaye}}</td>
+                    <td>{{ag.adresse.commune}}</td>
+                    
+                    <td>{{ag.adresse.ville}}</td>
+                    <td>{{ag.adresse.rue}}</td>
+
+                    <td><button type="button" class="btn btn-outline-success " (click)="ModifierAgence(ag.idAgence)"><i class="fa fa-pencil-square-o" aria-hidden="true" ></i>Modifier</button></td>
+                 
+                  </tr>
+                </table>
+                <ul class="nav nav-pills dc">
+                  <li *ngFor='let p of tableauPages ;let i=index' class="nav-item" >
+                    <a (click)="setpageAgence(i,$event)" class="nav-link"
+                       [ngClass]="{'active':i==page}">
+                      {{i+1}}
+                    </a>
+                  </li>
+                </ul>
+        
+            </div>
+          </div>
+        </div>
+
+        
+                <div class="col-md-5 ">
+                  <div class="card " >
+                    <div class="card-header">
+                    Liste des  Services
+                    </div>
+                    <div class="card-body" >
+                      <div class="container "  >
+                        <table class="table table-bordered " >
+                          <tr> <th> CodeService</th>
+                            <th>NomService</th>
+                      <th></th>
+                          <tr *ngFor="let dmu of listServices">
+                            <td>{{dmu.codeService}}</td>
+                            <td>{{dmu.nom}}</td>
+                            <td><button type="button" class="btn btn-outline-success " (click)="modifierService(dmu.codeService)"><i class="fa fa-pencil-square-o" aria-hidden="true" ></i>Modifier</button></td>
+                 
+                       
+                          </tr>
+                        </table>
+                        <ul class="nav nav-pills dc">
+                          <li *ngFor='let p of tableauPagessr ;let i=index' class="nav-item" >
+                            <a (click)="setpageService(i,$event)" class="nav-link"
+                               [ngClass]="{'active':i==pagesr}">
+                              {{i+1}}
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+      </div>
+      <p></p>
+      <div class="row">
+        <div class="col-md-7 ">
+          <div class="card " >
+            <div class="card-header">
+            Liste des Materiels
+            </div>
+            <div class="card-body" >
+              <div class="container "  >
+                <table class="table table-bordered " >
+                  <tr> <th> codeMateriel</th>
+                    <th>NomMateriel</th>
+                    <th>Model</th>
+                    <th>Processeur</th>
+                    <th></th>
+                  
+                  <tr *ngFor="let dmu of listMateriels">
+                    <td>{{dmu.idMateriel}}</td>
+                    <td>{{dmu.nom}}</td>
+                    <td>{{dmu.model}}</td>
+                    <td>{{dmu.processeur}}</td>
+                    <td><button type="button" class="btn btn-outline-success " (click)="modifierMateriel(dmu.id_Role)"><i class="fa fa-pencil-square-o" aria-hidden="true" ></i>Modifier</button></td>
+                 
+                  
+                  </tr>
+                </table>
+                <ul class="nav nav-pills dc">
+                  <li *ngFor='let p of tableauPagesmt ;let i=index' class="nav-item" >
+                    <a (click)="setpageMateriel(i,$event)" class="nav-link"
+                       [ngClass]="{'active':i==pagemt}">
+                      {{i+1}}
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+        <div class="col-md-5 ">
+            <div class="card " >
+              <div class="card-header">
+              Liste des Roles
+              </div>
+              <div class="card-body" >
+                <div class="container "  >
+                  <table class="table table-bordered " >
+                    <tr> <th> IDRole</th>
+                      <th>NomRole</th>
+                  <th></th>
+                    <tr *ngFor="let dmu of listRoles">
+                      <td>{{dmu.id_Role}}</td>
+                      <td>{{dmu.roleName}}</td>
+                      <td><button type="button" class="btn btn-outline-success " (click)="modifierRole(dmu.id_Role)"><i class="fa fa-pencil-square-o" aria-hidden="true" ></i>Modifier</button></td>
+                 
+                 
+                    </tr>
+                  </table>
+                  <ul class="nav nav-pills dc">
+                    <li *ngFor='let p of tableauPagesrl ;let i=index' class="nav-item" >
+                      <a (click)="setpageRole(i,$event)" class="nav-link"
+                         [ngClass]="{'active':i==pagerl}">
+                        {{i+1}}
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p></p>
+      </div>
+
+
+    </div>
+  </div>

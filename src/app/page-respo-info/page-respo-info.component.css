@@ -23,9 +23,19 @@ margin-left:110px;
 }
 .mvms2{
 margin-top:10px;
- margin-left:90px;
+ margin-left:110px;
 
  }
+ .nav-pills > li>a.active{
+     background-color:DarkGray;
+ }
+
+ .tb{
+ margin-left:240px;
+ margin-top:10px;
+ }
+ .butt{
+ margin-botton:25px;}
 .my-image{
   margin-left: -15px;
   margin-top: -20px;

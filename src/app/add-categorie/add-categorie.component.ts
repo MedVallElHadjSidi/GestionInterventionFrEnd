@@ -33,6 +33,8 @@ export class AddCategorieComponent implements OnInit {
     this.categorie=resp;
     this.modeRespAdd=1;
     this.Message="AJOUT AVEC SUCCES";
+    this.CategorieNames();
+    categorie.nom="";
 
 
 
